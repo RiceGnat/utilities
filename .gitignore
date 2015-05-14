@@ -11,6 +11,9 @@ Thumbs.db
 # Visual Studio generated
 bin/
 obj/
+Debug/
+Release/
+*.sdf
 *.suo
 *.user
 *.userprefs

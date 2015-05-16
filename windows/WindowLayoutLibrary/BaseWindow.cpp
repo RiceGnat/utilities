@@ -1,4 +1,5 @@
 #include "BaseWindow.h"
+#include "FontProvider.h"
 
 using namespace wll;
 
@@ -13,9 +14,6 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 			// Get BaseWindow pointer from lParam
 			CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
 			pWindow = (BaseWindow*)pcs->lpCreateParams;
-
-			// Store window handle in BaseWindow object
-			pWindow->hWnd = hWnd;
 
 			// Set window user data pointer to BaseWindow object
 			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)pcs->lpCreateParams);
@@ -32,6 +30,20 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 			PostQuitMessage(0);
 			return 0;
 		}
+	case WM_PAINT:
+		{
+			if (pWindow) {
+				PAINTSTRUCT ps;
+				HDC hdc;
+
+				hdc = BeginPaint(pWindow->hWnd, &ps);
+
+				pWindow->layout.get()->DrawAllElements(hdc);
+
+				EndPaint(pWindow->hWnd, &ps);
+				return 0;
+			}
+		}
 	default: // pWindow should be created already, but we will check just in case
 		{
 			// Send all other messages to their respective handlers
@@ -42,9 +54,9 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 	}
 }
 
-// Default message handler
-LRESULT BaseWindow::RoutMessage(MESSAGEPARAM_DEFS) const {
-	return DefWindowProc(DEFAULT_MESSAGEPARAMS);
+// Create window
+BaseWindow* BaseWindow::Create(CREATEPARAM_DEFS_SHORT) {
+	return CreateNewWindow<BaseWindow>(CREATEPARAMS_SHORT, NULL, NULL);
 }
 
 // Create window
@@ -73,18 +85,19 @@ const TCHAR* BaseWindow::GetTitle() const {
 }
 
 // Constructor
-BaseWindow::BaseWindow() {
+BaseWindow::BaseWindow(LayoutAttributes& attributes) {
 	OutputDebugString(_T("BaseWindow constructor\n"));
 	hWnd = NULL;
-	data = NULL;
-	layout = NULL;
 	title = NULL;
+	InitLayoutManager(attributes);
+	InitData();
+
+	WindowElement* element = new TextElement(_T("Test text\nTesttjfjg"), FontProvider::GetFont(_T("Segoe UI"), 18, 200), 0, 0);
+	layout.get()->AddElement(element);
 }
 
 // Destructor
 BaseWindow::~BaseWindow() {
 	OutputDebugString(_T("BaseWindow destructor\n"));
 	if (hWnd) DestroyWindow(hWnd);
-	if (data) delete data;
-	if (layout) delete layout;
 }

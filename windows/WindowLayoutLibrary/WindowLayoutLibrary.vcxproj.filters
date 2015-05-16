@@ -30,6 +30,9 @@
     <ClCompile Include="BaseWindowProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FontProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LayoutManager.h">
@@ -44,7 +47,13 @@
     <ClInclude Include="BaseWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaseWindowTemplateDefinitions.h">
+    <ClInclude Include="CreateNewWindowTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FontProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

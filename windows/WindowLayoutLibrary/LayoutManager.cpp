@@ -2,9 +2,12 @@
 
 using namespace wll;
 
-void LayoutManager::MoveNextLine(int lineHeight) {
-	if (nextLine == 0) nextLine += attributes.paddingY;
-	nextLine += lineHeight;
+void LayoutManager::SetAttributes(LayoutAttributes& attributes) {
+	this->attributes = &attributes;
+}
+
+void LayoutManager::Initialize() {
+	nextLine = attributes->paddingY;
 }
 
 void LayoutManager::AddElement(WindowElement* element) {
@@ -19,47 +22,50 @@ void LayoutManager::AddElement(WindowElement* element, LONG x, LONG y) {
 void LayoutManager::AddElement(WindowElement* element, LONG x, LONG y, unsigned int corner) {
 	// Adjust x position
 	if (corner == LM_UPPERRIGHT || corner == LM_LOWERRIGHT) {
-		x = attributes.width - x - element->GetWidth();
+		x = attributes->width - x - element->GetWidth();
 	}
 
 	// Adjust y position
 	if (corner == LM_LOWERLEFT || corner == LM_LOWERRIGHT) { 
-		y = attributes.height - y - element->GetHeight();
+		y = attributes->height - y - element->GetHeight();
 	}
 }
 
 void LayoutManager::AddNewLine(WindowElement* element) {
-	AddNewLine(element, attributes.lineHeight);
+	AddNewLine(element, attributes->lineHeight);
 }
 
 void LayoutManager::AddNewLine(WindowElement* element, unsigned int lineHeight) {
 	AddElement(element);
-	element->SetSize(attributes.width - attributes.paddingX * 2, lineHeight);
-	element->SetPosition(attributes.paddingX, nextLine);
-	MoveNextLine(lineHeight);
+	element->SetSize(0, lineHeight);
+	element->SetPosition(attributes->paddingX, nextLine);
+	//element->CalculateRect(GetDC(NULL));
 }
 
 void LayoutManager::AddNewMultiline(WindowElement* element, unsigned int lines) {
-	AddNewLine(element, attributes.lineHeight * lines);
+	AddNewLine(element, attributes->lineHeight * lines);
 }
 
 void LayoutManager::AddBlankLine() {
-	AddSpace(attributes.lineHeight);
+	AddSpace(attributes->lineHeight);
 }
 
 void LayoutManager::AddSpace(unsigned int lineHeight) {
-	MoveNextLine(lineHeight);
+	nextLine += lineHeight;
 }
 
 void LayoutManager::DrawAllElements(HDC hdc) {
-	for (unsigned int i = 0; i < elements.size(); i++) {
-		elements[i]->Draw(hdc);
-	}
+	LM_FOR_ALL_ELEMENTS(elements[i]->Draw(hdc););
 }
 
-LayoutManager::LayoutManager() {
+void LayoutManager::Clear() {
+	elements.clear();
+}
+
+LayoutManager::LayoutManager(LayoutAttributes& attributes) {
 	OutputDebugString(_T("LayoutManager constructor\n"));
-	nextLine = 0;
+	SetAttributes(attributes);
+	Initialize();
 }
 
 LayoutManager::~LayoutManager() {

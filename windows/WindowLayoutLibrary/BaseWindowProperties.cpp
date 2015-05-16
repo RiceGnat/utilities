@@ -2,6 +2,8 @@
 
 using namespace wll;
 
+// Override these to customize and extend functionality
+
 // Window class name
 const TCHAR* BaseWindow::className = _T("BaseWindow");
 
@@ -22,17 +24,34 @@ void BaseWindow::DefineWindowClass(HINSTANCE hInstance, WNDCLASSEX &wcex) const 
 }
 
 // Set window attributes
-HWND BaseWindow::MakeWindow(HINSTANCE hInstance, TCHAR* szTitle, LPVOID lpParam) {
-	return CreateWindowEx(
+HWND BaseWindow::MakeWindow(CREATEPARAM_DEFS) {
+	hWnd = CreateWindowEx(
 		NULL,							// Extended window styles
 		BaseWindow::className,			// Window class name
 		szTitle,						// Window title
 		WS_OVERLAPPEDWINDOW,			// Window styles
 		CW_USEDEFAULT, CW_USEDEFAULT,	// Default window position
 		500, 100,						// Window size
-		NULL,							// Handle to parent window
-		NULL,							// Handle to menu
+		hParent,						// Handle to parent window
+		hMenu,							// Handle to menu
 		hInstance,						// Handle to module instance
-		lpParam							// Pointer sent to window
+		this							// Pointer sent to window
 	);
+
+	SetWindowText(hWnd, szTitle);
+
+	return hWnd;
+}
+
+void BaseWindow::InitLayoutManager(LayoutAttributes& attributes) {
+	layout.reset(new LayoutManager(attributes));
+}
+
+void BaseWindow::InitData() {
+	data = NULL;
+}
+
+// Default message handler
+LRESULT BaseWindow::RoutMessage(MESSAGEPARAM_DEFS) const {
+	return DefWindowProc(DEFAULT_MESSAGEPARAMS);
 }

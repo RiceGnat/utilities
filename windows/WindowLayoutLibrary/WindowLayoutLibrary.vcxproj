@@ -13,16 +13,19 @@
   <ItemGroup>
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BaseWindowProperties.cpp" />
+    <ClCompile Include="FontProvider.cpp" />
     <ClCompile Include="LayoutManager.cpp" />
     <ClCompile Include="WindowElements.cpp" />
     <ClCompile Include="WindowUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FontProvider.h" />
     <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="BaseWindow.h" />
-    <ClInclude Include="BaseWindowTemplateDefinitions.h" />
+    <ClInclude Include="CreateNewWindowTemplate.h" />
     <ClInclude Include="WindowElements.h" />
     <ClInclude Include="WindowUtility.h" />
+    <ClInclude Include="wll.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{61E38B8C-AE5C-4027-BDAE-99284DF7CCB0}</ProjectGuid>

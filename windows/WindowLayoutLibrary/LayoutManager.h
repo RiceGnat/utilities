@@ -13,6 +13,8 @@
 #define LM_LOWERLEFT	2
 #define LM_LOWERRIGHT	3
 
+#define LM_FOR_ALL_ELEMENTS(x) for (unsigned int i = 0; i < elements.size(); i++) { x }
+
 namespace wll {
 	struct LayoutAttributes {
 		int paddingX;
@@ -20,9 +22,20 @@ namespace wll {
 		int lineHeight;
 		int width;
 		int height;
+		bool autoSize;
+		int indentWidth;
+		int indentLevel;
 	};
 
 	class LayoutManager {
+	/// INTERNAL CLASSES -------------------------------------
+	protected:
+		struct Anchor {
+			WindowElement* element;
+
+
+		};
+		
 	/// MEMBERS ----------------------------------------------
 	private:
 		// Window elements
@@ -31,12 +44,15 @@ namespace wll {
 		// Position for next line
 		int nextLine;
 
-		// Move next line position
-		void MoveNextLine(int lineHeight);
+		// Window metrics
+		LayoutAttributes* attributes;
 
 	public:
-		// Window metrics
-		LayoutAttributes attributes;
+		// Change layout attributes
+		void SetAttributes(LayoutAttributes& attributes);
+
+		// Initialize layout
+		virtual void Initialize();
 
 		// Add a new element
 		virtual void AddElement(WindowElement* element);
@@ -65,8 +81,11 @@ namespace wll {
 		// Draw all elements in the given device context
 		void DrawAllElements(HDC hdc);
 
+		// Destroy all elements
+		void Clear();
+
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------
-	public: LayoutManager();
+	public: LayoutManager(LayoutAttributes& attributes);
 	public: ~LayoutManager();
 	};
 }

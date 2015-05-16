@@ -9,7 +9,9 @@ namespace wll {
 		RECT rect;
 		BOOL isVisible;
 	public:
+		virtual int CalculateRect(HDC hdc) = 0;
 		virtual void Draw(HDC hdc) = 0;
+		//virtual void Draw(HDC hdc, RECT& rect) = 0;
 		LONG GetX() const;
 		LONG GetY() const;
 		LONG GetWidth() const;
@@ -25,12 +27,16 @@ namespace wll {
 	private:
 		HFONT font;
 		TCHAR* text;
+		BOOL wrap;
 	public:
+		virtual int CalculateRect(HDC hdc);
 		virtual void Draw(HDC hdc);
+		//virtual void Draw(HDC hdc, RECT& rect);
 		void SetFont(HFONT font);
 		void SetText(const TCHAR* text);
 
-	public: TextElement(const TCHAR* text, const HFONT font, LONG x = 0, LONG y = 0, LONG width = 0, LONG height = 0);
+	public: TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y);
+	public: TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y, LONG width, LONG height = 0, BOOL wrap = false);
 	public: ~TextElement();
 	}; 
 }

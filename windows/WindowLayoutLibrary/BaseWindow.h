@@ -1,3 +1,5 @@
+#include <memory>
+
 #include <windows.h>
 #include <tchar.h>
 
@@ -16,16 +18,28 @@
 #define DEFAULT_MESSAGEPARAMS hWnd, uMsg, wParam, lParam
 #define MESSAGEPARAM_DEFS DEFAULT_MESSAGEPARAM_DEFS, BaseWindow* pWindow
 #define MESSAGEPARAMS DEFAULT_MESSAGEPARAMS, pWindow
-#define CREATEPARAM_DEFS HINSTANCE hInstance, TCHAR* szTitle
-#define CREATEPARAMS hInstance, szTitle
+#define CREATEPARAM_DEFS_SHORT HINSTANCE hInstance, TCHAR* szTitle, LayoutAttributes& attributes
+#define CREATEPARAMS_SHORT hInstance, szTitle, attributes
+#define CREATEPARAM_DEFS CREATEPARAM_DEFS_SHORT, HWND hParent, HMENU hMenu
+#define CREATEPARAMS CREATEPARAMS_SHORT, hParent, hMenu
+
+#include "CreateNewWindowTemplate.h"
 
 namespace wll {
-	template <typename T> T* CreateNewWindow(CREATEPARAM_DEFS);
+	using std::unique_ptr;
 
 	class BaseWindow {
 	/// FRIENDS ----------------------------------------------
 		// Give access to creation function template
 		friend BaseWindow* CreateNewWindow<BaseWindow>(CREATEPARAM_DEFS);
+		
+	/// INTERNAL CLASSES -------------------------------------
+	protected:
+		// Abstract base data class
+		struct Data {
+		public: Data();
+		public: virtual ~Data() = 0;
+		};
 		
 	/// STATIC MEMBERS ---------------------------------------
 	private:
@@ -38,6 +52,9 @@ namespace wll {
 
 	public:
 		// Create a new window object
+		static BaseWindow* Create(CREATEPARAM_DEFS_SHORT);
+
+		// Create a new window object
 		static BaseWindow* Create(CREATEPARAM_DEFS);
 		
 	/// MEMBERS ----------------------------------------------
@@ -46,17 +63,23 @@ namespace wll {
 		virtual void DefineWindowClass(HINSTANCE hInstance, WNDCLASSEX &wcex) const;
 
 		// Make the window
-		virtual HWND MakeWindow(CREATEPARAM_DEFS, LPVOID lpParam);
+		virtual HWND MakeWindow(CREATEPARAM_DEFS);
+		
+		// Initialize layout manager object
+		virtual void InitLayoutManager(LayoutAttributes& attributes);
 
-	protected:
-		HWND hWnd;					// Window handle
-		TCHAR* title;				// Window title
-		void* data;					// Data object
-		LayoutManager* layout;		// Layout manager
+		// Initialize data object
+		virtual void InitData();
 
 		// Rout messages to handlers
 		virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS) const;
 
+	protected:
+		HWND hWnd;							// Window handle
+		TCHAR* title;						// Window title
+		unique_ptr<LayoutManager> layout;	// Layout manager pointer
+		unique_ptr<Data> data;				// Data object pointer
+		
 	public:
 		// Show window
 		BOOL Show(int nCmdShow);
@@ -78,12 +101,15 @@ namespace wll {
 		T& GetData() const;
 		
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------
-	protected: BaseWindow();
+	protected: BaseWindow(LayoutAttributes& attributes);
 	public: virtual ~BaseWindow();
 	};
-
-#include "BaseWindowTemplateDefinitions.h"
-
+	
+	// Typed data getter function template definition
+	template <typename T>
+	T& BaseWindow::GetData() const {
+		return *(reinterpret_cast<T*>(data));
+	}
 }
 
 #endif // !_INC_WINDOWBASE

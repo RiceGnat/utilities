@@ -3,15 +3,17 @@
 #ifndef _INC_WINELEM
 #define _INC_WINELEM
 
+#ifndef TE_MAXLENGTH
+#define TE_MAXLENGTH 255
+#endif
+
 namespace wll {
 	class WindowElement {
 	protected:
 		RECT rect;
 		BOOL isVisible;
 	public:
-		virtual int CalculateRect(HDC hdc) = 0;
 		virtual void Draw(HDC hdc) = 0;
-		//virtual void Draw(HDC hdc, RECT& rect) = 0;
 		LONG GetX() const;
 		LONG GetY() const;
 		LONG GetWidth() const;
@@ -26,17 +28,15 @@ namespace wll {
 	class TextElement : public WindowElement {
 	private:
 		HFONT font;
-		TCHAR* text;
+		TCHAR text[TE_MAXLENGTH];
 		BOOL wrap;
+		virtual void CalculateRect();
 	public:
-		virtual int CalculateRect(HDC hdc);
 		virtual void Draw(HDC hdc);
-		//virtual void Draw(HDC hdc, RECT& rect);
 		void SetFont(HFONT font);
 		void SetText(const TCHAR* text);
 
-	public: TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y);
-	public: TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y, LONG width, LONG height = 0, BOOL wrap = false);
+	public: TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y, LONG width = 0, LONG height = 0, BOOL wrap = FALSE);
 	public: ~TextElement();
 	}; 
 }

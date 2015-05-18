@@ -10,6 +10,10 @@ void LayoutManager::Initialize() {
 	nextLine = attributes->paddingY;
 }
 
+void LayoutManager::AddSpace(unsigned int lineHeight) {
+	nextLine += lineHeight;
+}
+
 void LayoutManager::AddElement(WindowElement* element) {
 	elements.push_back(element);
 }
@@ -37,9 +41,10 @@ void LayoutManager::AddNewLine(WindowElement* element) {
 
 void LayoutManager::AddNewLine(WindowElement* element, unsigned int lineHeight) {
 	AddElement(element);
-	element->SetSize(0, lineHeight);
+	if (lineHeight == 0) lineHeight = element->GetHeight();
+	element->SetSize(element->GetWidth(), lineHeight);
 	element->SetPosition(attributes->paddingX, nextLine);
-	//element->CalculateRect(GetDC(NULL));
+	AddSpace(lineHeight);
 }
 
 void LayoutManager::AddNewMultiline(WindowElement* element, unsigned int lines) {
@@ -48,10 +53,6 @@ void LayoutManager::AddNewMultiline(WindowElement* element, unsigned int lines) 
 
 void LayoutManager::AddBlankLine() {
 	AddSpace(attributes->lineHeight);
-}
-
-void LayoutManager::AddSpace(unsigned int lineHeight) {
-	nextLine += lineHeight;
 }
 
 void LayoutManager::DrawAllElements(HDC hdc) {

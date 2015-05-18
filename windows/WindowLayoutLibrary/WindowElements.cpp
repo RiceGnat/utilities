@@ -29,9 +29,15 @@ WindowElement::WindowElement() {
 	SetVisible(true);
 }
 
-int TextElement::CalculateRect(HDC hdc) {
-	// Set font
-	if (font) SelectObject(hdc, font);
+void TextElement::CalculateRect() {
+	// Get device context from desktop HWND (NULL) to use for DT_CALCRECT call
+	HDC hdc = GetDC(HWND_DESKTOP);
+
+	// Hold previous selected object in DC
+	HGDIOBJ obj = NULL;
+
+	// Select font in DC if set
+	if (font) obj = SelectObject(hdc, font);
 
 	// Create a new 1x1 rect (DT_CALCRECT + DT_WORDBREAK doesn't work with 0x0)
 	RECT calcRect = rect;
@@ -49,9 +55,12 @@ int TextElement::CalculateRect(HDC hdc) {
 	
 	// Save calculated rect
 	rect = calcRect;
-	
-	// Return height
-	return rect.bottom - rect.top;
+
+	// Restore previous object in DC
+	if (obj) SelectObject(hdc, obj);
+
+	// Common DCs must be released
+	ReleaseDC(HWND_DESKTOP, hdc);
 }
 
 void TextElement::Draw(HDC hdc) {
@@ -69,20 +78,10 @@ void TextElement::SetFont(HFONT font) {
 }
 
 void TextElement::SetText(const TCHAR* text) {
-	if (text) {
-		this->text = new TCHAR[_tcslen(text)];
-		_tcscpy_s(this->text, _tcslen(text) + 1, text);
-	}
-	else this->text = _T("");
-}
-
-TextElement::TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y) {
-	SetPosition(x, y);
-	SetSize(0, 0);
-	SetText(text);
-	SetFont(font);
-	wrap = FALSE;
-	CalculateRect(GetDC(NULL));
+	// Copy new next to buffer
+	if (text) _tcscpy_s(this->text, _tcslen(text) + 1, text);
+	// Else truncate buffer
+	else this->text[0] = '\0';
 }
 
 TextElement::TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y, LONG width, LONG height, BOOL wrap) {
@@ -91,8 +90,9 @@ TextElement::TextElement(const TCHAR* text, const HFONT font, LONG x, LONG y, LO
 	SetText(text);
 	SetFont(font);
 	this->wrap = wrap;
+	CalculateRect();
 }
 
 TextElement::~TextElement() {
-	delete text;
+
 }

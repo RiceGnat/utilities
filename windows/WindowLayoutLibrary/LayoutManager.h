@@ -54,6 +54,9 @@ namespace wll {
 		// Initialize layout
 		virtual void Initialize();
 
+		// Add space before the next line
+		virtual void AddSpace(unsigned int lineHeight);
+
 		// Add a new element
 		virtual void AddElement(WindowElement* element);
 
@@ -74,9 +77,6 @@ namespace wll {
 
 		// Add a blank line
 		virtual void AddBlankLine();
-
-		// Add space before the next line
-		virtual void AddSpace(unsigned int lineHeight);
 
 		// Draw all elements in the given device context
 		void DrawAllElements(HDC hdc);

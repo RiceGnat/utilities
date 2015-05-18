@@ -31,7 +31,7 @@ HWND BaseWindow::MakeWindow(CREATEPARAM_DEFS) {
 		szTitle,						// Window title
 		WS_OVERLAPPEDWINDOW,			// Window styles
 		CW_USEDEFAULT, CW_USEDEFAULT,	// Default window position
-		500, 100,						// Window size
+		500, 500,						// Window size
 		hParent,						// Handle to parent window
 		hMenu,							// Handle to menu
 		hInstance,						// Handle to module instance

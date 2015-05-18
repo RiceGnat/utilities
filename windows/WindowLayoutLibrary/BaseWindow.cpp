@@ -84,6 +84,11 @@ const TCHAR* BaseWindow::GetTitle() const {
 	return title;
 }
 
+// Get layout manager
+LayoutManager& BaseWindow::GetLayoutManager() const {
+	return *(layout.get());
+}
+
 // Constructor
 BaseWindow::BaseWindow(LayoutAttributes& attributes) {
 	OutputDebugString(_T("BaseWindow constructor\n"));
@@ -91,9 +96,6 @@ BaseWindow::BaseWindow(LayoutAttributes& attributes) {
 	title = NULL;
 	InitLayoutManager(attributes);
 	InitData();
-
-	WindowElement* element = new TextElement(_T("Test text\nTesttjfjg"), FontProvider::GetFont(_T("Segoe UI"), 18, 200), 0, 0);
-	layout.get()->AddElement(element);
 }
 
 // Destructor

@@ -2,12 +2,16 @@
 
 using namespace wll;
 
-void LayoutManager::SetAttributes(LayoutAttributes& attributes) {
-	this->attributes = &attributes;
-}
+//LayoutAttributes& LayoutManager::GetAttributes() const {
+//	return *attributes;
+//}
+
+//void LayoutManager::SetAttributes(LayoutAttributes& attributes) {
+//	this->attributes = &attributes;
+//}
 
 void LayoutManager::Initialize() {
-	nextLine = attributes->paddingY;
+	nextLine = attributes.paddingY;
 }
 
 void LayoutManager::AddSpace(unsigned int lineHeight) {
@@ -26,33 +30,33 @@ void LayoutManager::AddElement(WindowElement* element, LONG x, LONG y) {
 void LayoutManager::AddElement(WindowElement* element, LONG x, LONG y, unsigned int corner) {
 	// Adjust x position
 	if (corner == LM_UPPERRIGHT || corner == LM_LOWERRIGHT) {
-		x = attributes->width - x - element->GetWidth();
+		x = attributes.width - x - element->GetWidth();
 	}
 
 	// Adjust y position
 	if (corner == LM_LOWERLEFT || corner == LM_LOWERRIGHT) { 
-		y = attributes->height - y - element->GetHeight();
+		y = attributes.height - y - element->GetHeight();
 	}
 }
 
 void LayoutManager::AddNewLine(WindowElement* element) {
-	AddNewLine(element, attributes->lineHeight);
+	AddNewLine(element, attributes.lineHeight);
 }
 
 void LayoutManager::AddNewLine(WindowElement* element, unsigned int lineHeight) {
 	AddElement(element);
 	if (lineHeight == 0) lineHeight = element->GetHeight();
 	element->SetSize(element->GetWidth(), lineHeight);
-	element->SetPosition(attributes->paddingX, nextLine);
+	element->SetPosition(attributes.paddingX, nextLine);
 	AddSpace(lineHeight);
 }
 
 void LayoutManager::AddNewMultiline(WindowElement* element, unsigned int lines) {
-	AddNewLine(element, attributes->lineHeight * lines);
+	AddNewLine(element, attributes.lineHeight * lines);
 }
 
 void LayoutManager::AddBlankLine() {
-	AddSpace(attributes->lineHeight);
+	AddSpace(attributes.lineHeight);
 }
 
 void LayoutManager::DrawAllElements(HDC hdc) {
@@ -63,9 +67,9 @@ void LayoutManager::Clear() {
 	elements.clear();
 }
 
-LayoutManager::LayoutManager(LayoutAttributes& attributes) {
+LayoutManager::LayoutManager(LayoutAttributes& attributes) : attributes(attributes) {
 	OutputDebugString(_T("LayoutManager constructor\n"));
-	SetAttributes(attributes);
+	//SetAttributes(attributes);
 	Initialize();
 }
 

@@ -18,8 +18,8 @@
 #define DEFAULT_MESSAGEPARAMS hWnd, uMsg, wParam, lParam
 #define MESSAGEPARAM_DEFS DEFAULT_MESSAGEPARAM_DEFS, BaseWindow* pWindow
 #define MESSAGEPARAMS DEFAULT_MESSAGEPARAMS, pWindow
-#define CREATEPARAM_DEFS_SHORT HINSTANCE hInstance, TCHAR* szTitle, LayoutAttributes& attributes
-#define CREATEPARAMS_SHORT hInstance, szTitle, attributes
+#define CREATEPARAM_DEFS_SHORT HINSTANCE hInstance, TCHAR* szTitle
+#define CREATEPARAMS_SHORT hInstance, szTitle
 #define CREATEPARAM_DEFS CREATEPARAM_DEFS_SHORT, HWND hParent, HMENU hMenu
 #define CREATEPARAMS CREATEPARAMS_SHORT, hParent, hMenu
 
@@ -31,7 +31,7 @@ namespace wll {
 	class BaseWindow {
 	/// FRIENDS ----------------------------------------------
 		// Give access to creation function template
-		friend BaseWindow* CreateNewWindow<BaseWindow>(CREATEPARAM_DEFS);
+		friend BaseWindow* CreateNewWindow<BaseWindow>(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes);
 		
 	/// INTERNAL CLASSES -------------------------------------
 	protected:
@@ -52,10 +52,10 @@ namespace wll {
 
 	public:
 		// Create a new window object
-		static BaseWindow* Create(CREATEPARAM_DEFS_SHORT);
+		static BaseWindow* Create(CREATEPARAM_DEFS_SHORT, wll::LayoutAttributes& attributes);
 
 		// Create a new window object
-		static BaseWindow* Create(CREATEPARAM_DEFS);
+		static BaseWindow* Create(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes);
 		
 	/// MEMBERS ----------------------------------------------
 	private:
@@ -70,6 +70,9 @@ namespace wll {
 
 		// Initialize data object
 		virtual void InitData();
+
+		// Pre-paint handler
+		virtual void PrePaint();
 
 		// Rout messages to handlers
 		virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS) const;
@@ -91,7 +94,7 @@ namespace wll {
 		BOOL Redraw();
 		
 		// Get window title
-		const TCHAR* GetTitle() const;
+		//const TCHAR* GetTitle() const;
 
 		// Get layout manager
 		LayoutManager& GetLayoutManager() const;
@@ -102,12 +105,14 @@ namespace wll {
 		
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------
 	protected: BaseWindow(LayoutAttributes& attributes);
+	//protected: BaseWindow(LayoutManager& manager, Data& data);
 	public: virtual ~BaseWindow();
 	};
 	
 	// Typed data getter function template definition
 	template <typename T>
 	T& BaseWindow::GetData() const {
+		// NOTE: fix this eventually
 		return *(reinterpret_cast<T*>(data));
 	}
 }

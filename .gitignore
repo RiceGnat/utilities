@@ -14,6 +14,7 @@ obj/
 Debug/
 Release/
 *.sdf
+*.opensdf
 *.suo
 *.user
 *.userprefs

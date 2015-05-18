@@ -2,7 +2,7 @@
 namespace wll {
 	// Window creation function template
 	template <typename T>
-	T* CreateNewWindow(CREATEPARAM_DEFS) {
+	T* CreateNewWindow(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes) {
 		T* pWindow = new T(attributes);
 
 		pWindow->title = szTitle;

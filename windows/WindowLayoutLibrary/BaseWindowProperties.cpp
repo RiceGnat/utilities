@@ -44,11 +44,15 @@ HWND BaseWindow::MakeWindow(CREATEPARAM_DEFS) {
 }
 
 void BaseWindow::InitLayoutManager(LayoutAttributes& attributes) {
-	layout.reset(new LayoutManager(attributes));
+	//layout.reset(new LayoutManager(attributes));
 }
 
 void BaseWindow::InitData() {
 	data = NULL;
+}
+
+void BaseWindow::PrePaint() {
+	// Called prior to draw call, override to add functionality
 }
 
 // Default message handler

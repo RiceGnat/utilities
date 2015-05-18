@@ -30,9 +30,11 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 			PostQuitMessage(0);
 			return 0;
 		}
-	case WM_PAINT:
+	case WM_PAINT:				// Window draw call
 		{
 			if (pWindow) {
+
+
 				PAINTSTRUCT ps;
 				HDC hdc;
 
@@ -55,13 +57,13 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 }
 
 // Create window
-BaseWindow* BaseWindow::Create(CREATEPARAM_DEFS_SHORT) {
-	return CreateNewWindow<BaseWindow>(CREATEPARAMS_SHORT, NULL, NULL);
+BaseWindow* BaseWindow::Create(CREATEPARAM_DEFS_SHORT, wll::LayoutAttributes& attributes) {
+	return CreateNewWindow<BaseWindow>(CREATEPARAMS_SHORT, NULL, NULL, attributes);
 }
 
 // Create window
-BaseWindow* BaseWindow::Create(CREATEPARAM_DEFS) {
-	return CreateNewWindow<BaseWindow>(CREATEPARAMS);
+BaseWindow* BaseWindow::Create(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes) {
+	return CreateNewWindow<BaseWindow>(CREATEPARAMS, attributes);
 }
 
 // Show window
@@ -80,9 +82,9 @@ BOOL BaseWindow::Redraw() {
 }
 
 // Get window title
-const TCHAR* BaseWindow::GetTitle() const {
-	return title;
-}
+//const TCHAR* BaseWindow::GetTitle() const {
+//	return title;
+//}
 
 // Get layout manager
 LayoutManager& BaseWindow::GetLayoutManager() const {

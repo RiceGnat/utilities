@@ -78,12 +78,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BorderlessWindow.cpp" />
     <ClCompile Include="Hello.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WindowLayoutLibrary\WindowLayoutLibrary.vcxproj">
       <Project>{61e38b8c-ae5c-4027-bdae-99284df7ccb0}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BorderlessAttributes.h" />
+    <ClInclude Include="BorderlessWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

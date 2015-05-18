@@ -44,12 +44,15 @@ namespace wll {
 		// Position for next line
 		int nextLine;
 
-		// Window metrics
-		LayoutAttributes* attributes;
-
 	public:
+		// Window metrics
+		LayoutAttributes& attributes;
+
+		// Get layout attributes
+		//LayoutAttributes& GetAttributes() const;
+
 		// Change layout attributes
-		void SetAttributes(LayoutAttributes& attributes);
+		//void SetAttributes(LayoutAttributes& attributes);
 
 		// Initialize layout
 		virtual void Initialize();
@@ -81,7 +84,7 @@ namespace wll {
 		// Draw all elements in the given device context
 		void DrawAllElements(HDC hdc);
 
-		// Destroy all elements
+		// Clear all elements (does not destroy)
 		void Clear();
 
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------

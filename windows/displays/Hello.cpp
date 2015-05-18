@@ -7,7 +7,9 @@
 #define APPLICATION_NAME "Test application"
 
 #include "wll.h"
+#include "BorderlessWindow.h"
 
+void RebuildWindow();
 void Cleanup();
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -20,22 +22,22 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	attribs.paddingX = 10;
 	attribs.paddingY = 5;
 
-	wll::BaseWindow* pWindow = wll::BaseWindow::Create(hInstance, _T("New Window"), attribs);
+	BorderlessWindow* pWindow = BorderlessWindow::Create(hInstance, _T("New Window"), attribs);
 	if (pWindow == NULL) return 0;
 
 	// NOTE: Keep pointers in mind!
 	// NOTE: Raw pointers should not own resources
 	// NOTE: Avoid new/delete shenanigans inside classes
 
+	// TODO: Fix BorderlessWindow inheritance and constructors
+	// TODO: Tighten up LayoutManager reference/memory management
 	// TODO: Responsive layout & redraw flow
-	// TODO: Figure out how to set window attributes vs class attributes
-	// TODO: Establish proper inheritance rules and clean up classes
 	// TODO: Set up custom NC area (title bar, etc)
 
 	wll::LayoutManager& layout = pWindow->GetLayoutManager();
 	
-	wll::WindowElement* element = new wll::TextElement(_T("Test text\nTesttjfjg"), wll::FontProvider::GetFont(_T("Segoe UI"), 18, 200), 0, 0);
-	wll::WindowElement* element2 = new wll::TextElement(_T("adhdgdfgdfg"), wll::FontProvider::GetFont(_T("Segoe UI"), 18, 200), 0, 0);
+	wll::WindowElement* element = new wll::TextElement(_T("Test text\nTesttjfjg"), wll::FontProvider::GetFont(_T("Segoe UI"), attribs.lineHeight, 200), 0, 0);
+	wll::WindowElement* element2 = new wll::TextElement(_T("adhdgdfgdfg"), wll::FontProvider::GetFont(_T("Segoe UI"), attribs.lineHeight, 200), 0, 0);
 
 	layout.AddNewLine(element, 0);
 	layout.AddNewLine(element2);
@@ -57,6 +59,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	Cleanup();
 
 	return (int) msg.wParam;
+}
+
+void RebuildWindow() {
+
 }
 
 void Cleanup() {

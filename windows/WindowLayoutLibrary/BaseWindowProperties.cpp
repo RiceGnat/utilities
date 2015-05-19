@@ -44,7 +44,7 @@ HWND BaseWindow::MakeWindow(CREATEPARAM_DEFS) {
 }
 
 void BaseWindow::InitLayoutManager(LayoutAttributes& attributes) {
-	//layout.reset(new LayoutManager(attributes));
+	layout.reset(new LayoutManager(attributes));
 }
 
 void BaseWindow::InitData() {
@@ -56,6 +56,6 @@ void BaseWindow::PrePaint() {
 }
 
 // Default message handler
-LRESULT BaseWindow::RoutMessage(MESSAGEPARAM_DEFS) const {
+LRESULT BaseWindow::RoutMessage(MESSAGEPARAM_DEFS) {
 	return DefWindowProc(DEFAULT_MESSAGEPARAMS);
 }

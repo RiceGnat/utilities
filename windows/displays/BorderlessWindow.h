@@ -1,13 +1,14 @@
 #include "BaseWindow.h"
-#include "BorderlessAttributes.h"
 
 #ifndef _INC_BLWINDOW
 #define _INC_BLWINDOW
 
+struct BorderlessAttributes;
+
 class BorderlessWindow : public wll::BaseWindow {
 /// FRIENDS ----------------------------------------------
 	// Give access to creation function template
-	friend BorderlessWindow* wll::CreateNewWindow<BorderlessWindow>(CREATEPARAM_DEFS);
+	friend BorderlessWindow* wll::CreateNewWindow<BorderlessWindow>(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes);
 		
 /// INTERNAL CLASSES -------------------------------------
 protected:
@@ -23,10 +24,10 @@ private:
 
 public:
 	// Create a new window object
-	static BorderlessWindow* Create(CREATEPARAM_DEFS_SHORT);
+	static BorderlessWindow* Create(CREATEPARAM_DEFS_SHORT, BorderlessAttributes& attributes);
 
 	// Create a new window object
-	static BorderlessWindow* Create(CREATEPARAM_DEFS);
+	static BorderlessWindow* Create(CREATEPARAM_DEFS, BorderlessAttributes& attributes);
 
 /// MEMBERS ----------------------------------------------
 private:
@@ -43,7 +44,8 @@ private:
 	//virtual void PrePaint();
 
 	// Rout messages to handlers
-	//virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS) const;
+	virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS);
+
 	// Message handlers
 	
 	//LRESULT OnCreate(MESSAGEPARAM_DEFS);
@@ -56,15 +58,26 @@ private:
 	//LRESULT OnLButtonUp(MESSAGEPARAM_DEFS);
 
 	LRESULT OnNCHitTest(MESSAGEPARAM_DEFS);
-	//LRESULT OnNCLButtonDown(MESSAGEPARAM_DEFS);
-	//LRESULT OnNCLButtonUp(MESSAGEPARAM_DEFS);
+	LRESULT OnNCLButtonDown(MESSAGEPARAM_DEFS);
+	LRESULT OnNCLButtonUp(MESSAGEPARAM_DEFS);
+
+	// Hide base attributes function
+	BaseWindow::GetAttributes;
 
 public:
 	BorderlessAttributes& GetAttributes() const;
 		
 /// CONSTRUCTOR/DESTRUCTOR -------------------------------
-protected: BorderlessWindow(BorderlessAttributes& attributes);
+protected: BorderlessWindow(wll::LayoutAttributes& attributes);
 public: virtual ~BorderlessWindow();
+};
+
+struct BorderlessAttributes : public wll::LayoutAttributes {
+	int captionHeight;
+	int captionButtonWidth;
+
+	bool isMouseDown;
+	bool isMouseTracking;
 };
 
 #endif // !_INC_BLWINDOW

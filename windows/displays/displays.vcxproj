@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BorderlessWindow.cpp" />
+    <ClCompile Include="BorderlessWindowHandlers.cpp" />
     <ClCompile Include="Hello.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +88,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BorderlessAttributes.h" />
     <ClInclude Include="BorderlessWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

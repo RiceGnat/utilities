@@ -33,17 +33,40 @@ LRESULT CALLBACK BaseWindow::WindowProc(DEFAULT_MESSAGEPARAM_DEFS) {
 	case WM_PAINT:				// Window draw call
 		{
 			if (pWindow) {
+				// Resize window if autosize is enabled
+				if (pWindow->WINDOW_ATTRIBUTES.autoSize) {
+					SetWindowPos(
+						hWnd, NULL, 0, 0,
+						pWindow->WINDOW_ATTRIBUTES.width,
+						pWindow->WINDOW_ATTRIBUTES.height,
+						SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+				}
 
+				pWindow->PrePaint();
 
 				PAINTSTRUCT ps;
 				HDC hdc;
 
 				hdc = BeginPaint(pWindow->hWnd, &ps);
 
-				pWindow->layout.get()->DrawAllElements(hdc);
+				pWindow->WINDOW_LAYOUT.DrawAllElements(hdc);
 
 				EndPaint(pWindow->hWnd, &ps);
 				return 0;
+			}
+		}
+	case WM_SIZE:				// Window resize
+		{
+			if (pWindow) {
+				if (pWindow->WINDOW_ATTRIBUTES.autoSize) {
+
+				}
+				else {
+					POINTS size = MAKEPOINTS(lParam);
+					pWindow->WINDOW_ATTRIBUTES.width = size.x;
+					pWindow->WINDOW_ATTRIBUTES.height = size.y;
+					pWindow->WINDOW_LAYOUT.Refresh();
+				}
 			}
 		}
 	default: // pWindow should be created already, but we will check just in case
@@ -82,13 +105,18 @@ BOOL BaseWindow::Redraw() {
 }
 
 // Get window title
-//const TCHAR* BaseWindow::GetTitle() const {
-//	return title;
-//}
+const TCHAR* BaseWindow::GetTitle() const {
+	return title;
+}
 
 // Get layout manager
 LayoutManager& BaseWindow::GetLayoutManager() const {
 	return *(layout.get());
+}
+
+// Get layout attributes
+LayoutAttributes& BaseWindow::GetAttributes() const {
+	return GetLayoutManager().attributes;
 }
 
 // Constructor

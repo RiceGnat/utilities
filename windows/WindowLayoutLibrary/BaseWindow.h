@@ -16,12 +16,17 @@
 // Function parameter macros
 #define DEFAULT_MESSAGEPARAM_DEFS HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 #define DEFAULT_MESSAGEPARAMS hWnd, uMsg, wParam, lParam
-#define MESSAGEPARAM_DEFS DEFAULT_MESSAGEPARAM_DEFS, BaseWindow* pWindow
-#define MESSAGEPARAMS DEFAULT_MESSAGEPARAMS, pWindow
+#define MESSAGEPARAM_DEFS DEFAULT_MESSAGEPARAM_DEFS
+#define MESSAGEPARAMS DEFAULT_MESSAGEPARAMS
 #define CREATEPARAM_DEFS_SHORT HINSTANCE hInstance, TCHAR* szTitle
 #define CREATEPARAMS_SHORT hInstance, szTitle
 #define CREATEPARAM_DEFS CREATEPARAM_DEFS_SHORT, HWND hParent, HMENU hMenu
 #define CREATEPARAMS CREATEPARAMS_SHORT, hParent, hMenu
+
+// Property getter macros
+#define WINDOW_TITLE GetTitle()
+#define WINDOW_LAYOUT GetLayoutManager()
+#define WINDOW_ATTRIBUTES GetAttributes()
 
 #include "CreateNewWindowTemplate.h"
 
@@ -37,7 +42,6 @@ namespace wll {
 	protected:
 		// Abstract base data class
 		struct Data {
-		public: Data();
 		public: virtual ~Data() = 0;
 		};
 		
@@ -75,7 +79,7 @@ namespace wll {
 		virtual void PrePaint();
 
 		// Rout messages to handlers
-		virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS) const;
+		virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS);
 
 	protected:
 		HWND hWnd;							// Window handle
@@ -94,10 +98,13 @@ namespace wll {
 		BOOL Redraw();
 		
 		// Get window title
-		//const TCHAR* GetTitle() const;
+		const TCHAR* WINDOW_TITLE const;
 
 		// Get layout manager
-		LayoutManager& GetLayoutManager() const;
+		LayoutManager& WINDOW_LAYOUT const;
+
+		// Get layout attributes
+		LayoutAttributes& WINDOW_ATTRIBUTES const;
 
 		// Get data object as type
 		template <typename T>

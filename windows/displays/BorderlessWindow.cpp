@@ -27,7 +27,8 @@ HWND BorderlessWindow::MakeWindow(CREATEPARAM_DEFS) {
 		szTitle,						// Window title
 		WS_POPUP,						// Window styles
 		CW_USEDEFAULT, CW_USEDEFAULT,	// Default window position
-		500, 500,						// Window size
+		WINDOW_ATTRIBUTES.autoSize ? WINDOW_ATTRIBUTES.minWidth : WINDOW_ATTRIBUTES.width,
+		WINDOW_ATTRIBUTES.autoSize ? WINDOW_ATTRIBUTES.minHeight : WINDOW_ATTRIBUTES.height,
 		hParent,						// Handle to parent window
 		hMenu,							// Handle to menu
 		hInstance,						// Handle to module instance
@@ -40,22 +41,58 @@ HWND BorderlessWindow::MakeWindow(CREATEPARAM_DEFS) {
 }
 
 // Create window
-BorderlessWindow* BorderlessWindow::Create(CREATEPARAM_DEFS_SHORT) {
-	return wll::CreateNewWindow<BorderlessWindow>(CREATEPARAMS_SHORT, NULL, NULL);
+BorderlessWindow* BorderlessWindow::Create(CREATEPARAM_DEFS_SHORT, BorderlessAttributes& attributes) {
+	return wll::CreateNewWindow<BorderlessWindow>(CREATEPARAMS_SHORT, NULL, NULL, attributes);
 }
 
 // Create window
-BorderlessWindow* BorderlessWindow::Create(CREATEPARAM_DEFS) {
-	return wll::CreateNewWindow<BorderlessWindow>(CREATEPARAMS);
+BorderlessWindow* BorderlessWindow::Create(CREATEPARAM_DEFS, BorderlessAttributes& attributes) {
+	return wll::CreateNewWindow<BorderlessWindow>(CREATEPARAMS, attributes);
+}
+
+// Message router
+LRESULT BorderlessWindow::RoutMessage(MESSAGEPARAM_DEFS) {
+	// Assume pWindow is not NULL
+	switch (uMsg) {
+	//case WM_CREATE:				// Client area creation
+	//	return OnCreate(MESSAGEPARAMS);
+	//case WM_PAINT:				// Paint call
+	//	return OnPaint(MESSAGEPARAMS);
+
+	//case WM_MOUSEMOVE:			// Mouse is moving in window
+	//	return OnMouseMove(MESSAGEPARAMS);
+
+	//case WM_LBUTTONDOWN:		// Left mouse button down
+	//	return OnLButtonDown(MESSAGEPARAMS);
+
+	//case WM_LBUTTONUP:			// Left mouse button up
+	//	return OnLButtonUp(MESSAGEPARAMS);
+
+	//case WM_MOUSELEAVE:			// Mouse left window
+	//case WM_KILLFOCUS:			// Window lost focus
+	//	return OnMouseLeave(MESSAGEPARAMS);
+
+	case WM_NCHITTEST:			// Test for non-client area elements
+		return OnNCHitTest(MESSAGEPARAMS);
+
+	case WM_NCLBUTTONDOWN:
+		return OnNCLButtonDown(MESSAGEPARAMS);
+
+	case WM_NCLBUTTONUP:
+		return OnNCLButtonUp(MESSAGEPARAMS);
+	}
+
+	// Unhandled messages should fall here
+	return DefWindowProc(DEFAULT_MESSAGEPARAMS);
 }
 
 BorderlessAttributes& BorderlessWindow::GetAttributes() const {
-	wll::LayoutAttributes& attribs = GetLayoutManager().GetAttributes();
+	wll::LayoutAttributes& attribs = GetLayoutManager().attributes;
 	return (BorderlessAttributes&) attribs;
 }
 
 // Constructor
-BorderlessWindow::BorderlessWindow(BorderlessAttributes& attributes) : BaseWindow(attributes) {
+BorderlessWindow::BorderlessWindow(wll::LayoutAttributes& attributes) : BaseWindow(attributes) {
 	OutputDebugString(_T("MainWindow constructor\n"));
 }
 

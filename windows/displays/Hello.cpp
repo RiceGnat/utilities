@@ -17,21 +17,31 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				   LPSTR lpCmdLine,
 				   int nCmdShow)
 {
-	wll::LayoutAttributes attribs;
-	attribs.lineHeight = 18;
+	BorderlessAttributes attribs = BorderlessAttributes();
+	attribs.width = 200;
+	attribs.height = 400;
+	attribs.autoSize = true;
+	attribs.minWidth = 20;
+	attribs.minHeight = 20;
 	attribs.paddingX = 10;
 	attribs.paddingY = 5;
+	attribs.lineHeight = 18;
+	attribs.indentWidth = 0;
+	attribs.indentLevel = 0;
+	attribs.captionHeight = 24;
+	attribs.captionButtonWidth = 24;
 
-	BorderlessWindow* pWindow = BorderlessWindow::Create(hInstance, _T("New Window"), attribs);
+	wll::BaseWindow* pWindow = wll::BaseWindow::Create(hInstance, _T("New Window"), attribs);
 	if (pWindow == NULL) return 0;
 
 	// NOTE: Keep pointers in mind!
 	// NOTE: Raw pointers should not own resources
 	// NOTE: Avoid new/delete shenanigans inside classes
 
-	// TODO: Fix BorderlessWindow inheritance and constructors
-	// TODO: Tighten up LayoutManager reference/memory management
-	// TODO: Responsive layout & redraw flow
+	// TODO: Fine tune autosized windows (disable resize, client vs window area)
+	// TODO: Possibly refactor CreateWindow call and inheritance
+	// TODO: Redraw flow
+	// TODO: Rework data object: how much public control/internal dependency?
 	// TODO: Set up custom NC area (title bar, etc)
 
 	wll::LayoutManager& layout = pWindow->GetLayoutManager();
@@ -41,6 +51,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	layout.AddNewLine(element, 0);
 	layout.AddNewLine(element2);
+
+	//BorderlessAttributes test = pWindow->GetAttributes();
 
 	pWindow->Show(nCmdShow);
 	pWindow->Update();

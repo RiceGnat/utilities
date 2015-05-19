@@ -12,10 +12,23 @@ using namespace wll;
 
 void LayoutManager::Initialize() {
 	nextLine = attributes.paddingY;
+	
+	width = height = 0;
+
+	if (attributes.autoSize) {
+		attributes.width = attributes.minWidth;
+		attributes.height = attributes.minHeight;
+	}
 }
 
 void LayoutManager::AddSpace(unsigned int lineHeight) {
 	nextLine += lineHeight;
+	height += lineHeight;
+
+	if (attributes.autoSize) {
+		attributes.width = max(attributes.width, width + attributes.paddingX * 2);
+		attributes.height = max(attributes.height, height + attributes.paddingY * 2);
+	}
 }
 
 void LayoutManager::AddElement(WindowElement* element) {
@@ -45,9 +58,17 @@ void LayoutManager::AddNewLine(WindowElement* element) {
 
 void LayoutManager::AddNewLine(WindowElement* element, unsigned int lineHeight) {
 	AddElement(element);
+	
 	if (lineHeight == 0) lineHeight = element->GetHeight();
+	int offset = attributes.indentLevel * attributes.indentWidth;
+
 	element->SetSize(element->GetWidth(), lineHeight);
-	element->SetPosition(attributes.paddingX, nextLine);
+	element->SetPosition(attributes.paddingX + offset, nextLine);
+
+	int totalWidth = element->GetWidth() + offset;
+	if (totalWidth > width)
+		width = totalWidth;
+	
 	AddSpace(lineHeight);
 }
 
@@ -65,6 +86,17 @@ void LayoutManager::DrawAllElements(HDC hdc) {
 
 void LayoutManager::Clear() {
 	elements.clear();
+}
+
+void LayoutManager::Reset() {
+	Clear();
+	Initialize();
+}
+
+void LayoutManager::Refresh() {
+	std::vector<WindowElement*> swap(elements);
+	Reset();
+	elements.swap(swap);
 }
 
 LayoutManager::LayoutManager(LayoutAttributes& attributes) : attributes(attributes) {

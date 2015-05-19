@@ -17,12 +17,16 @@
 
 namespace wll {
 	struct LayoutAttributes {
-		int paddingX;
-		int paddingY;
-		int lineHeight;
 		int width;
 		int height;
 		bool autoSize;
+		int minWidth;
+		int minHeight;
+
+		int paddingX;
+		int paddingY;
+		int lineHeight;
+
 		int indentWidth;
 		int indentLevel;
 	};
@@ -40,9 +44,11 @@ namespace wll {
 	private:
 		// Window elements
 		std::vector<wll::WindowElement*> elements;
+		
+		int nextLine;	// Position for next line
 
-		// Position for next line
-		int nextLine;
+		int width;		// Content width
+		int height;		// Content height
 
 	public:
 		// Window metrics
@@ -86,6 +92,12 @@ namespace wll {
 
 		// Clear all elements (does not destroy)
 		void Clear();
+
+		// Clear and re-initialize layout manager
+		void Reset();
+
+		// Reset layout manager and re-add all elements
+		void Refresh();
 
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------
 	public: LayoutManager(LayoutAttributes& attributes);

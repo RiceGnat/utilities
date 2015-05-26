@@ -38,13 +38,6 @@ namespace wll {
 		// Give access to creation function template
 		friend BaseWindow* CreateNewWindow<BaseWindow>(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes);
 		
-	/// INTERNAL CLASSES -------------------------------------
-	protected:
-		// Abstract base data class
-		struct Data {
-		public: virtual ~Data() = 0;
-		};
-		
 	/// STATIC MEMBERS ---------------------------------------
 	private:
 		// Window class name
@@ -65,18 +58,15 @@ namespace wll {
 	private:
 		// Populate a WNDCLASSEX struct with the window class properties
 		virtual void DefineWindowClass(HINSTANCE hInstance, WNDCLASSEX &wcex) const;
-
-		// Make the window
+		
+		// Create the window
 		virtual HWND MakeWindow(CREATEPARAM_DEFS);
 		
 		// Initialize layout manager object
 		virtual void InitLayoutManager(LayoutAttributes& attributes);
 
-		// Initialize data object
-		virtual void InitData();
-
 		// Pre-paint handler
-		virtual void PrePaint();
+		virtual void PrePaint(HDC hdc);
 
 		// Rout messages to handlers
 		virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS);
@@ -85,7 +75,10 @@ namespace wll {
 		HWND hWnd;							// Window handle
 		TCHAR* title;						// Window title
 		unique_ptr<LayoutManager> layout;	// Layout manager pointer
-		unique_ptr<Data> data;				// Data object pointer
+		void* data;							// Data object pointer
+		
+		// Create the window
+		HWND MakeWindow(CREATEPARAM_DEFS, const TCHAR* className, DWORD windowStyles, DWORD windowExStyles);
 		
 	public:
 		// Show window
@@ -109,10 +102,12 @@ namespace wll {
 		// Get data object as type
 		template <typename T>
 		T& GetData() const;
+
+		// Set data object
+		void SetData(void* pData);
 		
 	/// CONSTRUCTOR/DESTRUCTOR -------------------------------
 	protected: BaseWindow(LayoutAttributes& attributes);
-	//protected: BaseWindow(LayoutManager& manager, Data& data);
 	public: virtual ~BaseWindow();
 	};
 	

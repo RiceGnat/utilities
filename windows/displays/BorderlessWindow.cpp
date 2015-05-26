@@ -21,23 +21,7 @@ void BorderlessWindow::DefineWindowClass(HINSTANCE hInstance, WNDCLASSEX &wcex) 
 
 // Set window attributes
 HWND BorderlessWindow::MakeWindow(CREATEPARAM_DEFS) {
-	hWnd = CreateWindowEx(
-		WS_EX_TOOLWINDOW,				// Extended window styles
-		BorderlessWindow::className,		// Window class name
-		szTitle,						// Window title
-		WS_POPUP,						// Window styles
-		CW_USEDEFAULT, CW_USEDEFAULT,	// Default window position
-		WINDOW_ATTRIBUTES.autoSize ? WINDOW_ATTRIBUTES.minWidth : WINDOW_ATTRIBUTES.width,
-		WINDOW_ATTRIBUTES.autoSize ? WINDOW_ATTRIBUTES.minHeight : WINDOW_ATTRIBUTES.height,
-		hParent,						// Handle to parent window
-		hMenu,							// Handle to menu
-		hInstance,						// Handle to module instance
-		this							// Pointer sent to window
-	);
-
-	SetWindowText(hWnd, szTitle);
-
-	return hWnd;
+	return BaseWindow::MakeWindow(CREATEPARAMS, BorderlessWindow::className, WS_POPUP, WS_EX_TOOLWINDOW);
 }
 
 // Create window
@@ -93,10 +77,10 @@ BorderlessAttributes& BorderlessWindow::GetAttributes() const {
 
 // Constructor
 BorderlessWindow::BorderlessWindow(wll::LayoutAttributes& attributes) : BaseWindow(attributes) {
-	OutputDebugString(_T("MainWindow constructor\n"));
+	OutputDebugString(_T("BorderlessWindow constructor\n"));
 }
 
 // Destructor
 BorderlessWindow::~BorderlessWindow() {
-	OutputDebugString(_T("MainWindow destructor\n"));
+	OutputDebugString(_T("BorderlessWindow destructor\n"));
 }

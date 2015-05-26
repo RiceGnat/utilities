@@ -10,10 +10,6 @@ class BorderlessWindow : public wll::BaseWindow {
 	// Give access to creation function template
 	friend BorderlessWindow* wll::CreateNewWindow<BorderlessWindow>(CREATEPARAM_DEFS, wll::LayoutAttributes& attributes);
 		
-/// INTERNAL CLASSES -------------------------------------
-protected:
-
-		
 /// STATIC MEMBERS ---------------------------------------
 private:
 	// Window class name
@@ -41,14 +37,14 @@ private:
 	//virtual void InitData();
 
 	// Pre-paint handler
-	//virtual void PrePaint();
+	virtual void PrePaint(HDC hdc);
 
 	// Rout messages to handlers
 	virtual LRESULT RoutMessage(MESSAGEPARAM_DEFS);
 
 	// Message handlers
 	
-	//LRESULT OnCreate(MESSAGEPARAM_DEFS);
+	//virtual LRESULT OnCreate(MESSAGEPARAM_DEFS);
 	//LRESULT OnPaint(MESSAGEPARAM_DEFS);
 
 	//LRESULT OnMouseMove(MESSAGEPARAM_DEFS);
@@ -57,9 +53,9 @@ private:
 	//LRESULT OnLButtonDown(MESSAGEPARAM_DEFS);
 	//LRESULT OnLButtonUp(MESSAGEPARAM_DEFS);
 
-	LRESULT OnNCHitTest(MESSAGEPARAM_DEFS);
-	LRESULT OnNCLButtonDown(MESSAGEPARAM_DEFS);
-	LRESULT OnNCLButtonUp(MESSAGEPARAM_DEFS);
+	virtual LRESULT OnNCHitTest(MESSAGEPARAM_DEFS);
+	virtual LRESULT OnNCLButtonDown(MESSAGEPARAM_DEFS);
+	virtual LRESULT OnNCLButtonUp(MESSAGEPARAM_DEFS);
 
 	// Hide base attributes function
 	BaseWindow::GetAttributes;

@@ -23,35 +23,16 @@ void BaseWindow::DefineWindowClass(HINSTANCE hInstance, WNDCLASSEX &wcex) const 
 	wcex.hIconSm        = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
 }
 
-// Set window attributes
+// Create window with given window styles
 HWND BaseWindow::MakeWindow(CREATEPARAM_DEFS) {
-	hWnd = CreateWindowEx(
-		NULL,							// Extended window styles
-		BaseWindow::className,			// Window class name
-		szTitle,						// Window title
-		WS_OVERLAPPEDWINDOW,			// Window styles
-		CW_USEDEFAULT, CW_USEDEFAULT,	// Default window position
-		500, 500,						// Window size
-		hParent,						// Handle to parent window
-		hMenu,							// Handle to menu
-		hInstance,						// Handle to module instance
-		this							// Pointer sent to window
-	);
-
-	SetWindowText(hWnd, szTitle);
-
-	return hWnd;
+	return MakeWindow(CREATEPARAMS, BaseWindow::className, WS_OVERLAPPEDWINDOW, NULL);
 }
 
 void BaseWindow::InitLayoutManager(LayoutAttributes& attributes) {
 	layout.reset(new LayoutManager(attributes));
 }
 
-void BaseWindow::InitData() {
-	data = NULL;
-}
-
-void BaseWindow::PrePaint() {
+void BaseWindow::PrePaint(HDC hdc) {
 	// Called prior to draw call, override to add functionality
 }
 

@@ -2,12 +2,11 @@
 #include <vector>
 #include <sstream>
 
-#include "urischeme.h"
+#include "cortana-uri.h"
 
 using namespace std;
 
 // arg1 : uri string
-// arg2 : path to binary
 int main(int argc, char** argv) {
 	if (argc < 2) {
 		printf("URI string required\n");
@@ -17,6 +16,12 @@ int main(int argc, char** argv) {
 	// Get URI
 	const string uri(argv[1]);
 
+	// Call handler
+	return handleUri(uri);
+}
+
+int handleUri(const string uri) {
+	
 	// Split protocol and URI body
 	const string protocol(uri.substr(0, uri.find(':') + 1));
 	const string body(uri.substr(protocol.length()));
@@ -24,13 +29,16 @@ int main(int argc, char** argv) {
 	// Check that URI protocol is what is expected
 	if (protocol.compare(URI_PROTOCOL) != 0) {
 		printf("URI must begin with %s\n", URI_PROTOCOL);
-		return 0;
+		return EXIT_FAILURE;
 	}
 
 	// Get path to binary if it was passed
-	const bool haspath = argc > 2;
 	string binpath;
-	if (haspath) binpath = argv[2];
+
+	// Remove this functionality for now for the sake of simplicity
+	// Assume that the directories for the binaries have been added
+	//const bool haspath = argc > 2;
+	//if (haspath) binpath = argv[2];
 
 	// Tokenize parameters from URI body
 	stringstream ss(body);
@@ -44,7 +52,7 @@ int main(int argc, char** argv) {
 	// Get command
 	if (tokens.size() <= COMMAND_INDEX) {
 		printf("No command in URI\n");
-		return 0;
+		return EXIT_FAILURE;
 	}
 
 	string* command = &(tokens.at(COMMAND_INDEX));
@@ -57,11 +65,11 @@ int main(int argc, char** argv) {
 		// Wake-on-LAN (WolCmd)
 		if (tokens.size() < 3) {
 			printf("Insufficent arguments to WolCmd\n");
-			return 0;
+			return EXIT_FAILURE;
 		}
 
 		// Set default bin
-		if (!haspath) binpath = "WolCmd";
+		binpath = "WolCmd";
 
 		// Get magic packet parameters
 		string* macaddress(&(tokens.at(COMMAND_PARAMINDEX(1))));
@@ -77,12 +85,12 @@ int main(int argc, char** argv) {
 	else if (command->MATCHES(CMD_SHUTDOWN) || command->MATCHES(CMD_SLEEP) || command->MATCHES(CMD_RESTART)) {
 		// Shutdown/suspend/restart (PsShutdown)
 		if (tokens.size() < 2) {
-			printf("Specify target computer\n");
-			return 0;
+			printf("Target computer not specified\n");
+			return EXIT_FAILURE;
 		}
 
 		// Set default bin
-		if (!haspath) binpath = "PsShutdown";
+		binpath = "PsShutdown";
 		
 		// Get computer name
 		string* computer(&(tokens.at(COMMAND_PARAMINDEX(1))));
@@ -102,10 +110,11 @@ int main(int argc, char** argv) {
 	}
 	else {
 		printf("Command not recognized\n");
-		return 0;
+		return EXIT_FAILURE;
 	}
+
 #ifdef _DEBUG
-	printf(out.str().c_str());
+	printf("%s\n", out.str().c_str());
 	system("pause");
 #endif // _DEBUG
 
@@ -113,5 +122,5 @@ int main(int argc, char** argv) {
 	system(out.str().c_str());
 #endif // !_DEBUG
 
-	return 0;
+	return EXIT_SUCCESS;
 }

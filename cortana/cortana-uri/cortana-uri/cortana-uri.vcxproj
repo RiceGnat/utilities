@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B3431590-76B6-474F-8F23-7ADD4DEBEC1F}</ProjectGuid>
+    <ProjectGuid>{98C56DCA-5CB6-4405-9996-8FA587D36897}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>wolwrapper</RootNamespace>
+    <RootNamespace>cortanauri</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,7 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="wol-wrapper.cpp" />
+    <ClCompile Include="cortana-uri-handler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="urischeme.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

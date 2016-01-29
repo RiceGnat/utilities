@@ -9,12 +9,14 @@ ehthumbs.db
 Thumbs.db
 
 # Visual Studio generated
+.vs/
 bin/
 obj/
 Debug/
 Release/
 *.sdf
 *.opensdf
+*.opendb
 *.suo
 *.user
 *.userprefs

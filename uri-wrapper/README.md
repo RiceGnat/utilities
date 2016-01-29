@@ -1,1 +1,0 @@
-Wrappers for various utilities to allow them to be called in Windows via registered URI protocol.

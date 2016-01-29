@@ -10,6 +10,7 @@ Thumbs.db
 
 # Visual Studio generated
 .vs/
+x64/
 bin/
 obj/
 Debug/

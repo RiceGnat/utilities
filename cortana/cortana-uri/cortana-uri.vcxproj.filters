@@ -20,6 +20,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="register-protocol.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cortana-uri.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="urischeme.h">
       <Filter>Header Files</Filter>
     </ClInclude>

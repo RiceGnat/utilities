@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="CustomCommandSet">
+    <CommandPrefix>Controls</CommandPrefix>
+    <Example>Turn systems on or off</Example>
+    <Command Name="WakeUpComputer">
+      <Example>Start up Kaleina</Example>
+      <ListenFor>Wake [up] {machine}</ListenFor>
+      <ListenFor>Start [up] {machine}</ListenFor>
+      <ListenFor>Turn on {machine}</ListenFor>
+      <Feedback>Waking up {machine}</Feedback>
+      <Navigate/>
+    </Command>
+    <Command Name="ShutdownComputer">
+      <Example>
+        Shut down Kaleina
+      </Example>
+      <ListenFor>Shut down {machine}</ListenFor>
+      <ListenFor>Shut {machine} down</ListenFor>
+      <ListenFor>Turn off {machine}</ListenFor>
+      <ListenFor>Turn {machine} off</ListenFor>
+      <Feedback>Shutting down {machine}</Feedback>
+      <Navigate/>
+    </Command>
+    <Command Name="SuspendComputer">
+      <Example>
+        Suspend Kaystros
+      </Example>
+      <ListenFor>Suspend {machine}</ListenFor>
+      <ListenFor>Put {machine} to sleep</ListenFor>
+      <ListenFor>Put {machine} on standby</ListenFor>
+      <Feedback>Putting {machine} on standby</Feedback>
+      <Navigate/>
+    </Command>
+    <Command Name="RestartComputer">
+      <Example>
+        Restart Kaleina
+      </Example>
+      <ListenFor>Restart {machine}</ListenFor>
+      <ListenFor>Have you tried turning {machine} off and on again</ListenFor>
+      <Feedback>Restarting {machine}</Feedback>
+      <Navigate/>
+    </Command>
+    <PhraseList Label="machine">
+      <Item>Fara</Item>
+      <Item>Kaleina</Item>
+      <Item>Kaystros</Item>
+    </PhraseList>
+  </CommandSet>
+</VoiceCommands>

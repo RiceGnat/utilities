@@ -22,7 +22,7 @@
     <ProjectGuid>{98C56DCA-5CB6-4405-9996-8FA587D36897}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>cortanauri</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -145,6 +145,10 @@
     <ClCompile Include="cortana-uri-handler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="register-protocol.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cortana-uri.h" />
     <ClInclude Include="urischeme.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

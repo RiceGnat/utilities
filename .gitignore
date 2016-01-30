@@ -15,12 +15,15 @@ bin/
 obj/
 Debug/
 Release/
+AppPackages/
+BundleArtifacts/
 *.sdf
 *.opensdf
 *.opendb
 *.suo
 *.user
 *.userprefs
+*.pfx
 
 # Unity generated
 Library/

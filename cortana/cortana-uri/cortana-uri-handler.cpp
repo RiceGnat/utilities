@@ -43,7 +43,7 @@ namespace cortana {
 		string binpath;
 
 		// Remove this functionality for now for the sake of simplicity
-		// Assume that the directories for the binaries have been added
+		// Assume that the directories for the binaries have been added to PATH
 		//const bool haspath = argc > 2;
 		//if (haspath) binpath = argv[2];
 
@@ -111,7 +111,7 @@ namespace cortana {
 			if (command->MATCHES(CMD_SLEEP)) {
 				out << " -d";
 			}
-			else if (command->MATCHES(CMD_SLEEP)) {
+			else if (command->MATCHES(CMD_RESTART)) {
 				out << " -r";
 			}
 		}

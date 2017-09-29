@@ -1,4 +1,10 @@
-﻿[CmdletBinding()]
+﻿<#
+.SYNOPSIS
+    Archives a directory.
+.DESCRIPTION
+    Creates or updates a 7-zip archive for the contents of a specified directory.
+#>
+[CmdletBinding()]
 param (
     # Directory to be archived
     [Parameter(Mandatory=$True)]
@@ -10,7 +16,7 @@ param (
 )
 
 # Import logging functions
-. .\logging.ps1
+. logging.ps1
 
 # Location must be a directory
 if ((Get-Item $Location) -is [System.IO.DirectoryInfo]) {

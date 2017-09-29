@@ -1,4 +1,18 @@
-﻿[CmdletBinding()]
+﻿<#
+.SYNOPSIS
+    Performs backup operations for a directory.
+.DESCRIPTION
+    Creates a 7-zip archive of contents of the specified directory. The archive will be created in the specified backup directory with the date appended to the source folder name.
+    Location must be a directory. BackupDir will be created if it does not exist.
+    If CleanupAge is set, backups older than the specified number of days will be deleted after the archive is created.
+.EXAMPLE
+    .\backup.ps1 -Location C:\MyFiles -BackupDir "D:\Backups"
+    Creates an archive of C:\MyFiles in D:\Backups.
+.EXAMPLE
+    .\backup.ps1 -Location C:\MyFiles -BackupDir "D:\Backups" -CleanupAge 30
+    Creates an archive of C:\MyFiles in D:\Backups, then cleans up archives older than 30 days.
+#>
+[CmdletBinding()]
 param (
     # Directory to be backed up
     [Parameter(Mandatory=$True)]
@@ -6,11 +20,14 @@ param (
 
     # Backup directory
     [Parameter(Mandatory=$True)]
-    [string]$BackupDir
+    [string]$BackupDir,
+
+    # Cleanup threshold
+    [Int]$CleanupAge
 )
 
 # Import logging functions
-. .\logging.ps1
+. logging.ps1
 
 # Save current path
 $path = Convert-Path .
@@ -81,24 +98,26 @@ Log 'Deleting directory copy'
 Remove-Item $name -Force -Recurse | Out-Null
 
 # Remove old archives
-Log 'Checking for archives older than 30 days'
-$count = 0
-Get-Item .\* -Filter ($name + ' backup*') |
-foreach {
-    if ($_.Name -match "\d{4}-\d{2}-\d{2}") {
-        if ((New-TimeSpan -Start $matches[0] -End $date).Days -gt 30) {
-            LogVerbose ('Deleting archive "' + $_.Name + '"')
-            Remove-Item $_.FullName -Force | Out-Null
-            $count++
+if ($CleanupAge -gt 0) {
+    Log "Checking for archives older than $($CleanupAge) days"
+    $count = 0
+    Get-Item .\* -Filter ($name + ' backup*') |
+    foreach {
+        if ($_.Name -match "\d{4}-\d{2}-\d{2}") {
+            if ((New-TimeSpan -Start $matches[0] -End $date).Days -gt $CleanupAge) {
+                LogVerbose ('Deleting archive "' + $_.Name + '"')
+                Remove-Item $_.FullName -Force | Out-Null
+                $count++
+            }
         }
     }
-}
-if ($count -gt 0) {
-    $plural = if ($count -eq 1 ) { '' } else { 's' }
-    Log ('Deleted ' + $count + ' archive' + $plural)
-}
-else {
-    Log ('No old archives found')
+    if ($count -gt 0) {
+        $plural = if ($count -eq 1 ) { '' } else { 's' }
+        Log ('Deleted ' + $count + ' archive' + $plural)
+    }
+    else {
+        Log ('No old archives found')
+    }
 }
 
 # Navigate back to original path (useful for directly running in shell)

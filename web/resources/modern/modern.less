@@ -1,0 +1,266 @@
+﻿@background: #f0f0f0;
+@foreground: #444444;
+@foreground-inv: #ffffff;
+@base: #d0d0d0;
+@accent: #444444;
+@fade-in: 50ms;
+@fade-out: 100ms;
+
+.modern {
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+    background: @background;
+    color: @foreground;
+
+    .tip {
+        font-size: 80%;
+        font-style: italic;
+        opacity: 0.5;
+    }
+
+    .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    b {
+        font-weight: 600;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 350%;
+        font-weight: 200;
+    }
+
+    h2 {
+        font-size: 300%;
+        font-weight: 300;
+    }
+
+    h3 {
+        font-size: 250%;
+        font-weight: 300;
+    }
+
+    h4 {
+        font-size: 200%;
+        font-weight: 300;
+    }
+
+    h5 {
+        font-size: 150%;
+        font-weight: 300;
+    }
+
+    h6 {
+        font-size: 100%;
+        font-weight: 400;
+    }
+
+    a {
+        color: lighten(@foreground, 40%);
+        text-decoration: none;
+        transition-property: color;
+        transition-duration: @fade-out;
+        transition-timing-function: linear;
+
+        &:hover,
+        &:focus {
+            outline: 0;
+            color: lighten(@foreground, 50%);
+            transition-duration: @fade-in;
+        }
+
+        &:active {
+            color: lighten(@foreground, 20%);
+            transition-duration: 0ms;
+        }
+    }
+
+    *::-moz-focus-inner {
+        border: 0;
+    }
+
+    button,
+    input[type="button"],
+    input[type="submit"] {
+        border: 0;
+        outline: 0;
+        padding: 2px 15px 2px;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: 400;
+        background-color: @base;
+        color: inherit;
+        transition-property: background-color, color, opacity;
+        transition-duration: @fade-out;
+        transition-timing-function: linear;
+
+        &:disabled {
+            opacity: 0.3;
+        }
+
+        &.hot {
+            font-weight: 600;
+        }
+
+        &:enabled:hover,
+        &:enabled:focus {
+            background-color: darken(@base, 10%);
+            transition-duration: @fade-in;
+        }
+
+        &:enabled:active {
+            background-color: darken(@base, 30%);
+            transition-duration: 0ms;
+        }
+
+        &.hot:enabled {
+            background-color: @accent;
+            color: @foreground-inv;
+        }
+
+        &.hot:enabled:hover,
+        &.hot:enabled:focus {
+            background-color: lighten(@accent, 15%);
+        }
+
+        &.hot:enabled:active {
+            background-color: lighten(@accent, 40%);
+        }
+    }
+
+    input:-moz-read-only,
+    input:read-only {
+        background-color: transparent;
+    }
+
+    input[type="text"] {
+        border: 0;
+        padding: 2px 5px;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        background-color: @base;
+        color: inherit;
+        transition-property: background-color, color, opacity;
+        transition-duration: @fade-out;
+        transition-timing-function: linear;
+
+        &:disabled {
+            opacity: 0.3;
+        }
+
+        &::-moz-placeholder {
+            color: lighten(@foreground, 30%);
+            font-style: italic;
+        }
+
+        &:-ms-input-placeholder {
+            font-style: italic;
+            color: lighten(@foreground, 30%);
+        }
+
+        &::-webkit-input-placeholder {
+            font-style: italic;
+            color: lighten(@foreground, 30%);
+        }
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        display: none;
+
+        & + label {
+        }
+
+        & + label > .check {
+            display: inline-block;
+            position: relative;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0 5px;
+            transition-property: background-color, border, opacity;
+            transition-duration: @fade-out;
+            transition-timing-function: linear;
+        }
+
+        & + label > .check.small {
+            width: 12px;
+            height: 12px;
+            top: 1px;
+        }
+
+        & + label > .check.medium {
+            width: 16px;
+            height: 16px;
+            top: 2px;
+        }
+
+        & + label > .check.large {
+            width: 20px;
+            height: 20px;
+            top: 4px;
+        }
+
+        &:disabled + label {
+            opacity: 0.3;
+        }
+
+        & + label > .check {
+            border-style: solid;
+            border-color: @base;
+            border-width: 0;
+            background-color: @base;
+        }
+
+        &:checked + label > .check {
+            border-width: 3px;
+            background-color: @accent;
+        }
+
+        &:enabled + label:hover > .check {
+            background-color: darken(@base, 10%);
+            transition-duration: @fade-in;
+        }
+
+        &:enabled:active + label > .check {
+            background-color: darken(@base, 30%);
+            transition-duration: 0ms;
+        }
+
+        &:enabled:checked + label:hover > .check {
+            background-color: lighten(@accent, 15%);
+            transition-duration: @fade-in;
+        }
+
+        &:enabled:checked:active + label > .check {
+            background-color: lighten(@accent, 40%);
+            transition-duration: 0ms;
+        }
+    }
+
+    input[type="radio"] {
+        & + label > .check.small {
+            border-radius: 6px;
+        }
+
+        & + label > .check.medium {
+            border-radius: 8px;
+        }
+
+        & + label > .check.large {
+            border-radius: 10px;
+        }
+    }
+}

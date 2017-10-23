@@ -1,0 +1,112 @@
+/* COLOR SCHEME
+ * Background       #444444
+ * Text             #e0e0e0
+ * Links            #bbbbbb
+ * Links hover      #888888
+ * Links active     #e0e0e0
+ * Controls         #222222
+ * Controls hover   #888888
+ * Controls active  #bbbbbb
+ * Highlight        #e0e0e0
+ * Highlight text   #222222
+ * Placeholder text #d0d0d0
+ */
+.modern .dark {
+  border-color: #d0d0d0;
+  background: #444444;
+  color: #d0d0d0;
+}
+.modern .dark a {
+  color: #909090;
+}
+.modern .dark a:hover,
+.modern .dark a:focus {
+  color: #6a6a6a;
+  outline: 0;
+}
+.modern .dark a:active {
+  color: #c3c3c3;
+}
+.modern .dark button,
+.modern .dark input[type="button"],
+.modern .dark input[type="submit"] {
+  background-color: #222222;
+}
+.modern .dark button:enabled:hover,
+.modern .dark input[type="button"]:enabled:hover,
+.modern .dark input[type="submit"]:enabled:hover,
+.modern .dark button:enabled:focus,
+.modern .dark input[type="button"]:enabled:focus,
+.modern .dark input[type="submit"]:enabled:focus {
+  background-color: #555555;
+}
+.modern .dark button:enabled:active,
+.modern .dark input[type="button"]:enabled:active,
+.modern .dark input[type="submit"]:enabled:active {
+  background-color: #2f2f2f;
+}
+.modern .dark button.hot,
+.modern .dark input[type="button"].hot,
+.modern .dark input[type="submit"].hot {
+  font-weight: 600;
+}
+.modern .dark button.hot:enabled,
+.modern .dark input[type="button"].hot:enabled,
+.modern .dark input[type="submit"].hot:enabled {
+  background-color: #d0d0d0;
+  color: #222222;
+}
+.modern .dark button.hot:enabled:hover,
+.modern .dark input[type="button"].hot:enabled:hover,
+.modern .dark input[type="submit"].hot:enabled:hover,
+.modern .dark button.hot:enabled:focus,
+.modern .dark input[type="button"].hot:enabled:focus,
+.modern .dark input[type="submit"].hot:enabled:focus {
+  background-color: #aaaaaa;
+}
+.modern .dark button.hot:enabled:active,
+.modern .dark input[type="button"].hot:enabled:active,
+.modern .dark input[type="submit"].hot:enabled:active {
+  background-color: #6a6a6a;
+}
+.modern .dark input[type="text"] {
+  background-color: #222222;
+  color: inherit;
+}
+.modern .dark input[type="text"]::-moz-placeholder {
+  color: #6a6a6a;
+}
+.modern .dark input[type="text"]:-ms-input-placeholder {
+  color: #6a6a6a;
+}
+.modern .dark input[type="text"]::-webkit-input-placeholder {
+  color: #6a6a6a;
+}
+.modern .dark input[type="checkbox"] + label > .check,
+.modern .dark input[type="radio"] + label > .check {
+  border-style: solid;
+  border-color: #222222;
+  border-width: 0;
+  background-color: #222222;
+}
+.modern .dark input[type="checkbox"]:checked + label > .check,
+.modern .dark input[type="radio"]:checked + label > .check {
+  border-width: 3px;
+  background-color: #d0d0d0;
+}
+.modern .dark input[type="checkbox"]:enabled + label:hover > .check,
+.modern .dark input[type="radio"]:enabled + label:hover > .check {
+  background-color: #555555;
+}
+.modern .dark input[type="checkbox"]:enabled:active + label > .check,
+.modern .dark input[type="radio"]:enabled:active + label > .check {
+  background-color: #aaaaaa;
+}
+.modern .dark input[type="checkbox"]:enabled:checked + label:hover > .check,
+.modern .dark input[type="radio"]:enabled:checked + label:hover > .check {
+  background-color: #aaaaaa;
+}
+.modern .dark input[type="checkbox"]:enabled:checked:active + label > .check,
+.modern .dark input[type="radio"]:enabled:checked:active + label > .check {
+  background-color: #555555;
+}

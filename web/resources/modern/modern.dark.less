@@ -1,0 +1,110 @@
+﻿@background: #444444;
+@foreground: #d0d0d0;
+@foreground-inv: #222222;
+@base: #222222;
+@accent: #d0d0d0;
+
+.modern .dark {
+    border-color: @foreground;
+    background: @background;
+    color: @foreground;
+
+    a {
+        color: darken(@foreground, 25%);
+
+        &:hover,
+        &:focus {
+            color: darken(@foreground, 40%);
+            outline: 0;
+        }
+
+        &:active {
+            color: darken(@foreground, 5%);
+        }
+    }
+
+    button,
+    input[type="button"],
+    input[type="submit"] {
+        background-color: @base;
+
+        &:enabled:hover,
+        &:enabled:focus {
+            background-color: lighten(@base, 20%);
+        }
+
+        &:enabled:active {
+            background-color: lighten(@base, 5%);
+        }
+
+        &:disabled {
+        }
+
+        &.hot {
+            font-weight: 600;
+        }
+
+        &.hot:enabled {
+            background-color: @accent;
+            color: @foreground-inv;
+        }
+
+        &.hot:enabled:hover,
+        &.hot:enabled:focus {
+            background-color: darken(@accent, 15%);
+        }
+
+        &.hot:enabled:active {
+            background-color: darken(@accent, 40%);
+        }
+    }
+
+
+    input[type="text"] {
+        background-color: @base;
+        color: inherit;
+
+        &::-moz-placeholder {
+            color: darken(@foreground, 40%);
+        }
+
+        &:-ms-input-placeholder {
+            color: darken(@foreground, 40%);
+        }
+
+        &::-webkit-input-placeholder {
+            color: darken(@foreground, 40%);
+        }
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        & + label > .check {
+            border-style: solid;
+            border-color: @base;
+            border-width: 0;
+            background-color: @base;
+        }
+
+        &:checked + label > .check {
+            border-width: 3px;
+            background-color: @accent;
+        }
+
+        &:enabled + label:hover > .check {
+            background-color: lighten(@base, 20%);
+        }
+
+        &:enabled:active + label > .check {
+            background-color: darken(@accent, 15%);
+        }
+
+        &:enabled:checked + label:hover > .check {
+            background-color: darken(@accent, 15%);
+        }
+
+        &:enabled:checked:active + label > .check {
+            background-color: lighten(@base, 20%);
+        }
+    }
+}

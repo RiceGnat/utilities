@@ -40,21 +40,21 @@
         &:disabled {
         }
 
-        &.hot {
+        &.action {
             font-weight: 600;
         }
 
-        &.hot:enabled {
+        &.action:enabled {
             background-color: @accent;
             color: @foreground-inv;
         }
 
-        &.hot:enabled:hover,
-        &.hot:enabled:focus {
+        &.action:enabled:hover,
+        &.action:enabled:focus {
             background-color: darken(@accent, 15%);
         }
 
-        &.hot:enabled:active {
+        &.action:enabled:active {
             background-color: darken(@accent, 40%);
         }
     }
@@ -106,5 +106,11 @@
         &:enabled:checked:active + label > .check {
             background-color: lighten(@base, 20%);
         }
+    }
+
+    select {
+        border-color: @base;
+        background-color: @background;
+        color: @foreground;
     }
 }

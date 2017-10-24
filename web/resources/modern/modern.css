@@ -18,6 +18,12 @@
   -o-user-select: none;
   user-select: none;
 }
+.modern .inline {
+  display: inline;
+}
+.modern .inline-block {
+  display: inline-block;
+}
 .modern b {
   font-weight: 600;
 }
@@ -27,34 +33,40 @@
 .modern h4,
 .modern h5,
 .modern h6 {
-  margin: 0;
+  margin: 0 0 0.5em 0;
 }
-.modern h1 {
+.modern h1,
+.modern .h1 {
   font-size: 350%;
   font-weight: 200;
 }
-.modern h2 {
+.modern h2,
+.modern .h2 {
   font-size: 300%;
   font-weight: 300;
 }
-.modern h3 {
+.modern h3,
+.modern .h3 {
   font-size: 250%;
   font-weight: 300;
 }
-.modern h4 {
+.modern h4,
+.modern .h4 {
   font-size: 200%;
   font-weight: 300;
 }
-.modern h5 {
+.modern h5,
+.modern .h5 {
   font-size: 150%;
   font-weight: 300;
 }
-.modern h6 {
-  font-size: 100%;
-  font-weight: 400;
+.modern h6,
+.modern .h6 {
+  font-size: 125%;
+  font-weight: 300;
 }
 .modern a {
-  color: #aaaaaa;
+  color: #919191;
   text-decoration: none;
   transition-property: color;
   transition-duration: 100ms;
@@ -93,9 +105,9 @@
 .modern input[type="submit"]:disabled {
   opacity: 0.3;
 }
-.modern button.hot,
-.modern input[type="button"].hot,
-.modern input[type="submit"].hot {
+.modern button.action,
+.modern input[type="button"].action,
+.modern input[type="submit"].action {
   font-weight: 600;
 }
 .modern button:enabled:hover,
@@ -113,23 +125,23 @@
   background-color: #848484;
   transition-duration: 0ms;
 }
-.modern button.hot:enabled,
-.modern input[type="button"].hot:enabled,
-.modern input[type="submit"].hot:enabled {
+.modern button.action:enabled,
+.modern input[type="button"].action:enabled,
+.modern input[type="submit"].action:enabled {
   background-color: #444444;
   color: #ffffff;
 }
-.modern button.hot:enabled:hover,
-.modern input[type="button"].hot:enabled:hover,
-.modern input[type="submit"].hot:enabled:hover,
-.modern button.hot:enabled:focus,
-.modern input[type="button"].hot:enabled:focus,
-.modern input[type="submit"].hot:enabled:focus {
+.modern button.action:enabled:hover,
+.modern input[type="button"].action:enabled:hover,
+.modern input[type="submit"].action:enabled:hover,
+.modern button.action:enabled:focus,
+.modern input[type="button"].action:enabled:focus,
+.modern input[type="submit"].action:enabled:focus {
   background-color: #6a6a6a;
 }
-.modern button.hot:enabled:active,
-.modern input[type="button"].hot:enabled:active,
-.modern input[type="submit"].hot:enabled:active {
+.modern button.action:enabled:active,
+.modern input[type="button"].action:enabled:active,
+.modern input[type="submit"].action:enabled:active {
   background-color: #aaaaaa;
 }
 .modern input:-moz-read-only,
@@ -138,6 +150,7 @@
 }
 .modern input[type="text"] {
   border: 0;
+  outline: 0;
   padding: 2px 5px;
   font-family: inherit;
   font-size: inherit;
@@ -241,4 +254,18 @@
 }
 .modern input[type="radio"] + label > .check.large {
   border-radius: 10px;
+}
+.modern select {
+  outline: 0;
+  padding: 0 2px;
+  border-width: 1px;
+  border-color: #d0d0d0;
+  border-style: solid;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: #f0f0f0;
+  color: #444444;
+}
+.modern select:disabled {
+  opacity: 0.3;
 }

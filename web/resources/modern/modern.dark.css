@@ -1,16 +1,3 @@
-/* COLOR SCHEME
- * Background       #444444
- * Text             #e0e0e0
- * Links            #bbbbbb
- * Links hover      #888888
- * Links active     #e0e0e0
- * Controls         #222222
- * Controls hover   #888888
- * Controls active  #bbbbbb
- * Highlight        #e0e0e0
- * Highlight text   #222222
- * Placeholder text #d0d0d0
- */
 .modern .dark {
   border-color: #d0d0d0;
   background: #444444;
@@ -45,28 +32,28 @@
 .modern .dark input[type="submit"]:enabled:active {
   background-color: #2f2f2f;
 }
-.modern .dark button.hot,
-.modern .dark input[type="button"].hot,
-.modern .dark input[type="submit"].hot {
+.modern .dark button.action,
+.modern .dark input[type="button"].action,
+.modern .dark input[type="submit"].action {
   font-weight: 600;
 }
-.modern .dark button.hot:enabled,
-.modern .dark input[type="button"].hot:enabled,
-.modern .dark input[type="submit"].hot:enabled {
+.modern .dark button.action:enabled,
+.modern .dark input[type="button"].action:enabled,
+.modern .dark input[type="submit"].action:enabled {
   background-color: #d0d0d0;
   color: #222222;
 }
-.modern .dark button.hot:enabled:hover,
-.modern .dark input[type="button"].hot:enabled:hover,
-.modern .dark input[type="submit"].hot:enabled:hover,
-.modern .dark button.hot:enabled:focus,
-.modern .dark input[type="button"].hot:enabled:focus,
-.modern .dark input[type="submit"].hot:enabled:focus {
+.modern .dark button.action:enabled:hover,
+.modern .dark input[type="button"].action:enabled:hover,
+.modern .dark input[type="submit"].action:enabled:hover,
+.modern .dark button.action:enabled:focus,
+.modern .dark input[type="button"].action:enabled:focus,
+.modern .dark input[type="submit"].action:enabled:focus {
   background-color: #aaaaaa;
 }
-.modern .dark button.hot:enabled:active,
-.modern .dark input[type="button"].hot:enabled:active,
-.modern .dark input[type="submit"].hot:enabled:active {
+.modern .dark button.action:enabled:active,
+.modern .dark input[type="button"].action:enabled:active,
+.modern .dark input[type="submit"].action:enabled:active {
   background-color: #6a6a6a;
 }
 .modern .dark input[type="text"] {
@@ -109,4 +96,9 @@
 .modern .dark input[type="checkbox"]:enabled:checked:active + label > .check,
 .modern .dark input[type="radio"]:enabled:checked:active + label > .check {
   background-color: #555555;
+}
+.modern .dark select {
+  border-color: #222222;
+  background-color: #444444;
+  color: #d0d0d0;
 }

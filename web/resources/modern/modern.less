@@ -5,6 +5,7 @@
 @accent: #444444;
 @fade-in: 50ms;
 @fade-out: 100ms;
+@disabledOpacity: 0.3;
 
 .modern {
     font-family: "Segoe UI", sans-serif;
@@ -28,46 +29,54 @@
         user-select: none;
     }
 
+    .inline {
+        display: inline;
+    }
+
+    .inline-block {
+        display: inline-block;
+    }
+
     b {
         font-weight: 600;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        margin: 0;
+        margin: 0 0 0.5em 0;
     }
 
-    h1 {
+    h1, .h1 {
         font-size: 350%;
         font-weight: 200;
     }
 
-    h2 {
+    h2, .h2 {
         font-size: 300%;
         font-weight: 300;
     }
 
-    h3 {
+    h3, .h3 {
         font-size: 250%;
         font-weight: 300;
     }
 
-    h4 {
+    h4, .h4 {
         font-size: 200%;
         font-weight: 300;
     }
 
-    h5 {
+    h5, .h5 {
         font-size: 150%;
         font-weight: 300;
     }
 
-    h6 {
-        font-size: 100%;
-        font-weight: 400;
+    h6, .h6 {
+        font-size: 125%;
+        font-weight: 300;
     }
 
     a {
-        color: lighten(@foreground, 40%);
+        color: lighten(@foreground, 30%);
         text-decoration: none;
         transition-property: color;
         transition-duration: @fade-out;
@@ -106,10 +115,10 @@
         transition-timing-function: linear;
 
         &:disabled {
-            opacity: 0.3;
+            opacity: @disabledOpacity;
         }
 
-        &.hot {
+        &.action {
             font-weight: 600;
         }
 
@@ -124,17 +133,17 @@
             transition-duration: 0ms;
         }
 
-        &.hot:enabled {
+        &.action:enabled {
             background-color: @accent;
             color: @foreground-inv;
         }
 
-        &.hot:enabled:hover,
-        &.hot:enabled:focus {
+        &.action:enabled:hover,
+        &.action:enabled:focus {
             background-color: lighten(@accent, 15%);
         }
 
-        &.hot:enabled:active {
+        &.action:enabled:active {
             background-color: lighten(@accent, 40%);
         }
     }
@@ -146,6 +155,7 @@
 
     input[type="text"] {
         border: 0;
+        outline: 0;
         padding: 2px 5px;
         font-family: inherit;
         font-size: inherit;
@@ -157,7 +167,7 @@
         transition-timing-function: linear;
 
         &:disabled {
-            opacity: 0.3;
+            opacity: @disabledOpacity;
         }
 
         &::-moz-placeholder {
@@ -214,7 +224,7 @@
         }
 
         &:disabled + label {
-            opacity: 0.3;
+            opacity: @disabledOpacity;
         }
 
         & + label > .check {
@@ -261,6 +271,22 @@
 
         & + label > .check.large {
             border-radius: 10px;
+        }
+    }
+
+    select {
+        outline: 0;
+        padding: 0 2px;
+        border-width: 1px;
+        border-color: @base;
+        border-style: solid;
+        font-family: inherit;
+        font-size: inherit;
+        background-color: @background;
+        color: @foreground;
+
+        &:disabled {
+            opacity: @disabledOpacity;
         }
     }
 }

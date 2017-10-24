@@ -3,6 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link rel="stylesheet" href="modern.css" />
     <link rel="stylesheet" href="modern.dark.css" />
@@ -11,15 +12,21 @@
             height: 100%;
         }
 
+        html {
+            min-width: 658px;
+        }
+
         body {
             margin: 0;
             display: flex;
             flex-direction: column;
+            font-size: 16px;
         }
 
             body > div {
                 padding: 20px;
             }
+
                 body > div p {
                     max-width: 750px;
                 }
@@ -44,43 +51,26 @@
 
             $("a, button, input[type=button], input[type=submit]").on("click", function (e) {
                 $(this).blur();
-                e.preventDefault();
             });
         });
     </script>
 </head>
 <body class="modern">
     <div class="normal">
-        <h1>Modern<span class="tip">.css</span></h1>
+        <h1>Modern</h1>
         <h2>Visual Style</h2>
         <h3>Inspired by Windows Modern Design</h3>
         <h4>As introduced in Windows 8</h4>
-        <h5>Designed for use with Segoe UI</h5>
-        <h6>Pure CSS implementation</h6>
-        <p>Lorem ipsum dolor sit amet, <a href="javascript:void(0)">consectetur adipiscing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <h6 class="inline">Controls</h6>&emsp;<a id="toggleDisabled" href="javascript:void(0)">Toggle disabled</a>
+        <h5 class="inline-block">Monochrome theme</h5> <span class="tip">modern.css</span>
+        <h6>Create smooth and lightweight web interfaces</h6>
         <p>
-            <input type="text" placeholder="Textbox" />&ensp;
-            <input type="submit" class="action" />
-            <input type="button" value="Cancel" />
+            Designed for use with Segoe UI. Implemented with pure CSS to improve performance and minimize overhead.
         </p>
+        <p>See markup examples on <a href="https://github.com/RiceGnat/utilities/tree/master/web/resources/modern">GitHub</a>.</p>
+        <h6>Controls</h6>
+        <a id="toggleDisabled" href="javascript:void(0)">Toggle</a> disabled state of all controls
         <p>
-            <input type="checkbox" id="check1" />
-            <label for="check1"><span class="check small"></span>Small</label>&emsp;
-            <input type="checkbox" id="check2" />
-            <label for="check2"><span class="check medium"></span>Medium</label>&emsp;
-            <input type="checkbox" id="check3" />
-            <label for="check3"><span class="check large"></span>Large</label>&emsp;
-        </p>
-        <p>
-            <input type="radio" id="radio1" name="radio" />
-            <label for="radio1"><span class="check small"></span>Small</label>&emsp;
-            <input type="radio" id="radio2" name="radio" />
-            <label for="radio2"><span class="check medium"></span>Medium</label>&emsp;
-            <input type="radio" id="radio3" name="radio" />
-            <label for="radio3"><span class="check large"></span>Large</label>
-        </p>
-        <p>
+            <input type="text" placeholder="Textbox" />
             <select>
                 <option>
                     Select
@@ -91,9 +81,27 @@
                 <option>
                     Option 2
                 </option>
-            </select>
-            <span class="tip">Dropdown appearance may vary with browser</span>
+            </select>&ensp;
+            <input type="submit" class="action" />
+            <input type="button" value="Cancel" />
         </p>
+        <p>
+            <input type="checkbox" id="check1" />
+            <label for="check1"><span class="check small"></span>Small checkbox</label>&emsp;
+            <input type="checkbox" id="check2" />
+            <label for="check2"><span class="check medium"></span>Medium checkbox</label>&emsp;
+            <input type="checkbox" id="check3" />
+            <label for="check3"><span class="check large"></span>Large checkbox</label>
+        </p>
+        <p>
+            <input type="radio" id="radio1" name="radio" />
+            <label for="radio1"><span class="check small"></span>Small radio button</label>&emsp;
+            <input type="radio" id="radio2" name="radio" />
+            <label for="radio2"><span class="check medium"></span>Medium radio button</label>&emsp;
+            <input type="radio" id="radio3" name="radio" />
+            <label for="radio3"><span class="check large"></span>Large radio button</label>
+        </p>
+        <span class="tip">*Optional JavaScript functions available to automate checkbox and radio button creation</span>
     </div>
     <div class="dark">
         <h5 class="inline-block">Dark theme</h5> <span class="tip">modern.dark.css</span>
@@ -102,7 +110,18 @@
             Color overrides are fully contained within the tagged element.
         </p>
         <p>
-            <input type="text" placeholder="Textbox" />&ensp;
+            <input type="text" placeholder="Textbox" />
+            <select>
+                <option>
+                    Select
+                </option>
+                <option>
+                    Option 1
+                </option>
+                <option>
+                    Option 2
+                </option>
+            </select>&ensp;
             <input type="submit" class="action" />
             <input type="button" value="Cancel" />
         </p>
@@ -113,19 +132,6 @@
             <label for="radioDark1"><span class="check medium"></span>Radio 1</label>&emsp;
             <input type="radio" id="radioDark2" name="radioDark" />
             <label for="radioDark2"><span class="check medium"></span>Radio 2</label>&emsp;
-        </p>
-        <p>
-            <select>
-                <option>
-                    Select
-                </option>
-                <option>
-                    Option 1
-                </option>
-                <option>
-                    Option 2
-                </option>
-            </select>
         </p>
     </div>
 </body>

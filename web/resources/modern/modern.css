@@ -198,6 +198,8 @@
   height: 12px;
   top: 1px;
 }
+.modern input[type="checkbox"] + label > .check,
+.modern input[type="radio"] + label > .check,
 .modern input[type="checkbox"] + label > .check.medium,
 .modern input[type="radio"] + label > .check.medium {
   width: 16px;
@@ -249,6 +251,7 @@
 .modern input[type="radio"] + label > .check.small {
   border-radius: 6px;
 }
+.modern input[type="radio"] + label > .check,
 .modern input[type="radio"] + label > .check.medium {
   border-radius: 8px;
 }

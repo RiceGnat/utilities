@@ -24,14 +24,16 @@ require(["lib/common"], function () {
             // Show Dimension Halo check
             if (window.location.href.includes("#raid") && settings.url.includes("start")) {
                 var check = function () {
-                    if (typeof stage !== "undefined") {
+                    try {
                         if (stage.gGameStatus.boss.param[0].name.en.includes("Dimension Halo"))
                             $("<div>")
                                 .css({ "position": "absolute", "left": "10px", "bottom": "110px", "z-index": "12", "font-size": "8px", "color": "grey", "opacity": "0.4" })
                                 .text(stage.gGameStatus.boss.param[0].enemy_id)
                                 .appendTo(".cnt-raid");
                     }
-                    else setTimeout(check, 500);
+                    catch (ex) {
+                        setTimeout(check, 500);
+                    }
                 }
                 check();
             }

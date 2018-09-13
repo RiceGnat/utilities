@@ -148,7 +148,8 @@
 .modern input:read-only {
   background-color: transparent;
 }
-.modern input[type="text"] {
+.modern input[type="text"],
+.modern textarea {
   border: 0;
   outline: 0;
   padding: 2px 5px;
@@ -161,18 +162,22 @@
   transition-duration: 100ms;
   transition-timing-function: linear;
 }
-.modern input[type="text"]:disabled {
+.modern input[type="text"]:disabled,
+.modern textarea:disabled {
   opacity: 0.3;
 }
-.modern input[type="text"]::-moz-placeholder {
+.modern input[type="text"]::-moz-placeholder,
+.modern textarea::-moz-placeholder {
   color: #919191;
   font-style: italic;
 }
-.modern input[type="text"]:-ms-input-placeholder {
+.modern input[type="text"]:-ms-input-placeholder,
+.modern textarea:-ms-input-placeholder {
   font-style: italic;
   color: #919191;
 }
-.modern input[type="text"]::-webkit-input-placeholder {
+.modern input[type="text"]::-webkit-input-placeholder,
+.modern textarea::-webkit-input-placeholder {
   font-style: italic;
   color: #919191;
 }

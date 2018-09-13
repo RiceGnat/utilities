@@ -31,9 +31,6 @@
                     max-width: 750px;
                 }
 
-                body > div.normal {
-                }
-
                 body > div.dark {
                     flex: 1;
                 }
@@ -46,7 +43,7 @@
     <script>
         $(function () {
             $("#toggleDisabled").on("click", function (e) {
-                $(".modern input, .modern select").prop('disabled', function (i, v) { return !v; });
+                $(".modern input, .modern select, .modern textarea").prop('disabled', function (i, v) { return !v; });
             });
 
             $("a, button, input[type=button], input[type=submit]").on("click", function (e) {
@@ -101,7 +98,6 @@
             <input type="radio" id="radio3" name="radio" />
             <label for="radio3"><span class="check large"></span>Large radio button</label>
         </p>
-        <span class="tip">*Optional JavaScript functions available to automate checkbox and radio button creation</span>
     </div>
     <div class="dark">
         <h5 class="inline-block">Dark theme</h5> <span class="tip">modern.dark.css</span>

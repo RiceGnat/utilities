@@ -37,14 +37,7 @@
         &:enabled:active {
             background-color: lighten(@base, 5%);
         }
-
-        &:disabled {
-        }
-
-        &.action {
-            font-weight: 600;
-        }
-
+        
         &.action:enabled {
             background-color: @accent;
             color: @foreground-inv;
@@ -61,7 +54,8 @@
     }
 
 
-    input[type="text"] {
+    input[type="text"],
+    textarea {
         background-color: @base;
         color: inherit;
 
@@ -83,12 +77,10 @@
         & + label > .check {
             border-style: solid;
             border-color: @base;
-            border-width: 0;
             background-color: @base;
         }
 
         &:checked + label > .check {
-            border-width: 3px;
             background-color: @accent;
         }
 

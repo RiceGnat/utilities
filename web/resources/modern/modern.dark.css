@@ -49,14 +49,6 @@
 .modern .dark input[type="submit"]:enabled:active {
   background-color: #2f2f2f;
 }
-.modern.dark button.action,
-.modern .dark button.action,
-.modern.dark input[type="button"].action,
-.modern .dark input[type="button"].action,
-.modern.dark input[type="submit"].action,
-.modern .dark input[type="submit"].action {
-  font-weight: 600;
-}
 .modern.dark button.action:enabled,
 .modern .dark button.action:enabled,
 .modern.dark input[type="button"].action:enabled,
@@ -89,20 +81,28 @@
   background-color: #6a6a6a;
 }
 .modern.dark input[type="text"],
-.modern .dark input[type="text"] {
+.modern .dark input[type="text"],
+.modern.dark textarea,
+.modern .dark textarea {
   background-color: #222222;
   color: inherit;
 }
 .modern.dark input[type="text"]::-moz-placeholder,
-.modern .dark input[type="text"]::-moz-placeholder {
+.modern .dark input[type="text"]::-moz-placeholder,
+.modern.dark textarea::-moz-placeholder,
+.modern .dark textarea::-moz-placeholder {
   color: #6a6a6a;
 }
 .modern.dark input[type="text"]:-ms-input-placeholder,
-.modern .dark input[type="text"]:-ms-input-placeholder {
+.modern .dark input[type="text"]:-ms-input-placeholder,
+.modern.dark textarea:-ms-input-placeholder,
+.modern .dark textarea:-ms-input-placeholder {
   color: #6a6a6a;
 }
 .modern.dark input[type="text"]::-webkit-input-placeholder,
-.modern .dark input[type="text"]::-webkit-input-placeholder {
+.modern .dark input[type="text"]::-webkit-input-placeholder,
+.modern.dark textarea::-webkit-input-placeholder,
+.modern .dark textarea::-webkit-input-placeholder {
   color: #6a6a6a;
 }
 .modern.dark input[type="checkbox"] + label > .check,
@@ -111,14 +111,12 @@
 .modern .dark input[type="radio"] + label > .check {
   border-style: solid;
   border-color: #222222;
-  border-width: 0;
   background-color: #222222;
 }
 .modern.dark input[type="checkbox"]:checked + label > .check,
 .modern .dark input[type="checkbox"]:checked + label > .check,
 .modern.dark input[type="radio"]:checked + label > .check,
 .modern .dark input[type="radio"]:checked + label > .check {
-  border-width: 3px;
   background-color: #d0d0d0;
 }
 .modern.dark input[type="checkbox"]:enabled + label:hover > .check,

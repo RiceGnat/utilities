@@ -153,7 +153,8 @@
         background-color: transparent;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    textarea {
         border: 0;
         outline: 0;
         padding: 2px 5px;
@@ -189,9 +190,6 @@
     input[type="checkbox"],
     input[type="radio"] {
         display: none;
-
-        & + label {
-        }
 
         & + label > .check {
             display: inline-block;

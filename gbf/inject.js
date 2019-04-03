@@ -21,22 +21,6 @@ require(["lib/common"], function () {
                         .append($(".prt-supporter-attribute:first " + selector).not(this).map(map));
                 });
             }
-            // Show Dimension Halo check
-            if (window.location.href.includes("#raid") && settings.url.includes("start")) {
-                var check = function () {
-                    try {
-                        if (stage.gGameStatus.boss.param[0].name.en.includes("Dimension Halo"))
-                            $("<div>")
-                                .css({ "position": "absolute", "left": "10px", "bottom": "110px", "z-index": "12", "font-size": "8px", "color": "grey", "opacity": "0.4" })
-                                .text(stage.gGameStatus.boss.param[0].enemy_id)
-                                .appendTo(".cnt-raid");
-                    }
-                    catch (ex) {
-                        setTimeout(check, 500);
-                    }
-                }
-                check();
-            }
             // Show all summons on profile
             if (window.location.href.includes("#profile") && settings.url.includes("content")) {
                 var map = function () {

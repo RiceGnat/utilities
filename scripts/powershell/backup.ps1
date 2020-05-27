@@ -82,14 +82,14 @@ Log ('Copied ' + $count + ' item' + $plural)
 Log ('Archiving contents of "' + $Location + '"')
 $name = Split-Path $Location -Leaf
 $archive = $name + ' backup ' + $date;
-7za a $archive ($Location + '\*') -mx9 -y |
-foreach {
-    if (!($_ -match "^\s*$")) { LogVerbose $_ }
-}
-if ($?) {
+try {
+    7za a $archive ($Location + '\*') -mx9 -y |
+    foreach {
+        if (!($_ -match "^\s*$")) { LogVerbose $_ }
+    }
     Log ('Created archive "' + $archive + '.7z"')
 }
-else {
+catch {
     Log ('Failed to create archive!')
 }
 
